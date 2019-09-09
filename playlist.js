@@ -1,17 +1,18 @@
 class Playlist {
     
-    constructor(name) {
-        this.name = name;
-        this.tracks = [];
-    }
+  constructor(name, id) {
+    this.id = id;
+    this.name = name;
+    this.tracks = [];
+  }
 
-    getName() {
-        return this.name;
-    }
+  getName() {
+    return this.name;
+  }
 
-    addTrack(track) {
-        this.tracks.push(track);
-    }
+  addTrack(track) {
+    this.tracks.push(track);
+  }
 
 }
 

@@ -4,15 +4,14 @@ const fs = require('fs'); // para cargar/guarfar unqfy
 const Track = require('./track');
 const Artist = require('./artist');
 const Album = require('./album');
+const Playlist = require('./playlist');
 
 class UNQfy {
 
-  constructor(_artists) {
-    if(_artists !== undefined){
-      this.artists = _artists;
-    } else {
-      this.artists = [];
-    }
+  constructor() {
+    
+    this.artists = [];
+    this.playlists = [];
     this.idGenerator = 0;
   }
   
@@ -131,19 +130,18 @@ class UNQfy {
   }
 
   getPlaylistById(id) {
-
+    return this.playlists.find( playlist => playlist.id === parseInt(id));
   }
 
   // genres: array de generos(strings)
   // retorna: los tracks que contenga alguno de los generos en el parametro genres
   getTracksMatchingGenres(genres) {
-    let repeatedTracks = [];
+    let tracks = [];
     this.getAllAlbums().forEach( album => {
       const tracksByGenere = album.getTracksByGenres(genres);
-      repeatedTracks = repeatedTracks.concat(tracksByGenere);
+      tracks = tracks.concat(tracksByGenere);
     });
-    const tracks = new Set(repeatedTracks);
-    return Array.from(tracks);
+    return tracks;
   }
 
   // artistName: nombre de artista(string)
@@ -181,9 +179,9 @@ class UNQfy {
   }
 
   static load(filename) {
-    const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});this.idGenerator++;this.idGenthis.idGenerator++;erator++;
+    const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy, Artist, Album, Track, IdGenerator];
+    const classes = [UNQfy, Artist, Album, Track, Playlist];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

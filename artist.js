@@ -38,8 +38,7 @@ class Artist {
     this.albums.forEach(album => {
       tracks = new Array(...tracks,...album.tracks);
     });
-    const uniqueTracks = new Set(tracks);
-    return Array.from(uniqueTracks);
+    return tracks;
   }
 
 }

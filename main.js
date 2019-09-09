@@ -109,6 +109,12 @@ function main() {
     break;
   }
 
+  case 'tracksMatchingGenres': {
+    const tracks = unqfy.getTracksMatchingGenres(params[2]);
+    console.log(tracks);
+    break;
+  }
+
   default:{
     console.log('No existe el comando dado');
   }

@@ -27,6 +27,12 @@ class Artist {
     this.albums.push(album);
   }
 
+  removeAlbum(albumId) {
+    this.albums = this.albums.filter( album => 
+      album.id !== parseInt(albumId)    
+    );
+  }
+
 }
 
 module.exports = Artist;

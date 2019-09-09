@@ -7,17 +7,11 @@ const Album = require('./album');
 
 class UNQfy {
 
-  constructor(_artists, _albums) {
+  constructor(_artists) {
     if(_artists !== undefined){
-      this.artists = _artists;//Array<Artista>
+      this.artists = _artists;
     } else {
       this.artists = [];
-    }
-    
-    if(_albums !== undefined){
-      this.albums = _albums;//Array<Artista>
-    } else {
-      this.albums = [];
     }
   }
   
@@ -31,8 +25,9 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
-    const newArtist = new Artist(1, artistData.name, artistData.country);
+    const newArtist = new Artist(3, artistData.name, artistData.country);
     this.artists.push(newArtist);
+    return newArtist;
   }
 
 
@@ -48,8 +43,8 @@ class UNQfy {
   */
     const artist = this.getArtistById(artistId);
     const newAlbum = new Album(1, albumData.name, albumData.year, artist);
-    this.albums.push(newAlbum);
     artist.addAlbum(newAlbum);
+    return newAlbum;
   }
 
 
@@ -68,6 +63,7 @@ class UNQfy {
     const album = this.getAlbumById(albumId);
     const newTrack = new Track(1, trackData.name, trackData.duration, trackData.genres, album);
     album.addTrack(newTrack);
+    return newTrack;
   }
 
   getArtistById(id) {
@@ -77,13 +73,49 @@ class UNQfy {
   }
 
   getAlbumById(id) {
-    return this.albums.find(album =>
+    const albums = this.getAllAlbums();
+    return albums.find(album =>
       album.id === parseInt(id)
     );
   }
 
-  getTrackById(id) {
+  getAllAlbums() {
+    let albums = [];
+    this.artists.forEach( artist => 
+      albums = albums.concat(artist.albums)
+    );
+    return albums;
+  }
 
+  getTrackById(id) {
+    const albums = this.getAllAlbums();
+    return albums.find(album => 
+      album.ifContainsTrack(id)
+    ).getTrack(id);
+  }
+
+  removeTrack(trackId) {
+    const track = this.getTrackById(trackId);
+    const album = this.getAlbumById(track.album.id);
+    // const album = this.getAllAlbums().find(album => 
+    //   album.ifContainsTrack(trackId)
+    // )
+    album.removeTrack(track.id);
+  }
+
+  removeAlbum(albumId) {
+    const album = this.getAlbumById(albumId);
+    const artist = this.getArtistById(album.artist.id);
+    // const artist = this.artists.find(album => 
+    //   album.ifContainsAlbum(albumId)
+    // )
+    artist.removeAlbum(albumId);
+  }
+
+  removeArtist(artistId) {
+    this.artists = this.artists.filter( artist =>
+      artist.id !== parseInt(artistId)
+    );
   }
 
   getPlaylistById(id) {

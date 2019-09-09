@@ -60,15 +60,30 @@ function main() {
 
   case 'addAlbum':{
     unqfy.addAlbum(params[1], {name: params[2], year: params[3]});
-    console.log(unqfy.artists);
+    console.log(unqfy.getAlbumById(params[1]));
     break;
   } 
 
   case 'addTrack':{
-    unqfy.addTrack(params[1], {name: params[2], duration: params[3], genres: params[4]});
-    console.log(unqfy.getAlbumById(params[1]));
+    const track = unqfy.addTrack(params[1], {name: params[2], duration: params[3], genres: params[4]});
+    console.log(track);
+    break;
+  }
+  case 'removeArtist':{
+    unqfy.removeArtist(params[1]);
+    console.log(unqfy.artists);
     break;
   } 
+
+  case 'removeAlbum':{
+    unqfy.removeAlbum(params[1]);
+    break;
+  } 
+
+  case 'removeTrack':{
+    unqfy.removeTrack(params[1]);
+    break;
+  }
 
   default:{
     console.log('No existe el comando dado');

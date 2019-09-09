@@ -174,7 +174,8 @@ class UNQfy {
       * un metodo duration() que retorne la duración de la playlist.
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
-
+    const newPlaylist = new new Playlist(this.idGenerator, name, genresToInclude, maxDuration);
+    this.playlists.push(newPlaylist);
   }
 
   save(filename) {

@@ -13,6 +13,7 @@ class UNQfy {
     } else {
       this.artists = [];
     }
+    this.idGenerator = 0;
   }
   
   // artistData: objeto JS con los datos necesarios para crear un artista
@@ -25,7 +26,8 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
-    const newArtist = new Artist(3, artistData.name, artistData.country);
+    const newArtist = new Artist(this.idGenerator, artistData.name, artistData.country);
+    this.idGenerator++;
     this.artists.push(newArtist);
     return newArtist;
   }
@@ -42,7 +44,8 @@ class UNQfy {
      - una propiedad year (number)
   */
     const artist = this.getArtistById(artistId);
-    const newAlbum = new Album(1, albumData.name, albumData.year, artist);
+    const newAlbum = new Album(this.idGenerator, albumData.name, albumData.year, artist);
+    this.idGenerator++;
     artist.addAlbum(newAlbum);
     return newAlbum;
   }
@@ -61,7 +64,8 @@ class UNQfy {
       - una propiedad genres (lista de strings)
   */
     const album = this.getAlbumById(albumId);
-    const newTrack = new Track(1, trackData.name, trackData.duration, trackData.genres, album);
+    const newTrack = new Track(this.idGenerator, trackData.name, trackData.duration, trackData.genres, album);
+    this.idGenerator++;
     album.addTrack(newTrack);
     return newTrack;
   }
@@ -133,14 +137,20 @@ class UNQfy {
   // genres: array de generos(strings)
   // retorna: los tracks que contenga alguno de los generos en el parametro genres
   getTracksMatchingGenres(genres) {
-
+    let repeatedTracks = [];
+    this.getAllAlbums().forEach( album => {
+      const tracksByGenere = album.getTracksByGenres(genres);
+      repeatedTracks = repeatedTracks.concat(tracksByGenere);
+    });
+    const tracks = new Set(repeatedTracks);
+    return Array.from(tracks);
   }
 
   // artistName: nombre de artista(string)
   // retorna: los tracks interpredatos por el artista con nombre artistName
   getTracksMatchingArtist(artistName) {
     const artist = this.artists.find( artist => 
-      artist.name.toLowerCase() === artistName.toLowerCase()  
+      artist.name.toLowerCase() === artistName.name.toLowerCase()  
     );
     return artist.getAllTracks();
   }
@@ -171,9 +181,9 @@ class UNQfy {
   }
 
   static load(filename) {
-    const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
+    const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});this.idGenerator++;this.idGenthis.idGenerator++;erator++;
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy, Artist, Album, Track];
+    const classes = [UNQfy, Artist, Album, Track, IdGenerator];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

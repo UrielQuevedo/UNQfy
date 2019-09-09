@@ -27,6 +27,10 @@ class Track {
   getAlbum() {
     return this.album;
   }
+
+  isGenres(genres) {
+    return this.genres.some( genere => genres.includes(genere));
+  }
    
 }
 

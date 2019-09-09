@@ -44,6 +44,11 @@ class Album {
     );
   }
 
+  getTracksByGenres(genres) {
+    return this.tracks.filter( track => 
+      track.isGenres(genres)  
+    );
+  }
 }
 
 module.exports = Album;

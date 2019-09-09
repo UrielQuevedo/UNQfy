@@ -75,14 +75,9 @@ class UNQfy {
     );
   }
 
-  getArtistById(id) {
-    return this.searchElementById(this.artists, id);
-  }
+  getArtistById(id) { return this.searchElementById(this.artists, id); }
 
-  getAlbumById(id) {
-    const albums = this.getAllAlbums();
-    return this.searchElementById(albums, id);
-  }
+  getAlbumById(id) { return this.searchElementById(this.getAllAlbums(), id); }
 
   getAllAlbums() {
     let albums = [];
@@ -123,21 +118,13 @@ class UNQfy {
     );
   }
 
-  getAlbumByArtist(artistId) {
-    return this.getArtistById(artistId).albums;
-  }
+  getAlbumByArtist(artistId) { return this.getArtistById(artistId).albums; }
 
-  getTracksByAlbum(albumId) {
-    return this.getAlbumById(albumId).tracks;
-  }
+  getTracksByAlbum(albumId) { return this.getAlbumById(albumId).tracks; }
 
-  getPlaylistById(id) {
-    return this.searchElementById(this.playlists, id);
-  }
+  getPlaylistById(id) { return this.searchElementById(this.playlists, id); }
 
-  getListByName(list, name) {
-    return list.filter( elem => !elem.name.toLowerCase().includes(name));
-  }
+  getListByName(list, name) { return list.filter( elem => !elem.name.toLowerCase().includes(name)); }
 
   getAllTracks() {
     let tracks = [];
@@ -169,9 +156,9 @@ class UNQfy {
 
   // artistName: nombre de artista(string)
   // retorna: los tracks interpredatos por el artista con nombre artistName
-  getTracksMatchingArtist(artistName) {
+  getTracksMatchingArtist(_artist) {
     const artist = this.artists.find( artist => 
-      artist.name.toLowerCase() === artistName.name.toLowerCase()  
+      artist.isName(_artist.name)
     );
     return artist.getAllTracks();
   }

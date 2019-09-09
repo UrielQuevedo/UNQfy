@@ -41,6 +41,10 @@ class Artist {
     return tracks;
   }
 
+  isName(name) {
+    return this.name.toLowerCase() === name.toLowerCase();  
+  }
+
 }
 
 module.exports = Artist;

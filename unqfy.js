@@ -118,6 +118,14 @@ class UNQfy {
     );
   }
 
+  getAlbumByArtist(artistId) {
+    return this.getArtistById(artistId).albums;
+  }
+
+  getTracksByAlbum(albumId) {
+    return this.getAlbumById(albumId).tracks;
+  }
+
   getPlaylistById(id) {
 
   }

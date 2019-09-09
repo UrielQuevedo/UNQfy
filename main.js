@@ -85,6 +85,24 @@ function main() {
     break;
   }
 
+  case 'allArtists': {
+    const artists = unqfy.artists;
+    console.log(artists);
+    break;
+  }
+
+  case 'allAlbumsByArtist': {
+    const albumsByArtist = unqfy.getAlbumsByArtist(params[1]);
+    console.log(albumsByArtist);
+    break;
+  }
+
+  case 'allTracksByAlbum': {
+    const tracksByAlbum = unqfy.getTracksByAlbum(params[1]);
+    console.log(tracksByAlbum);
+    break;
+  }
+
   default:{
     console.log('No existe el comando dado');
   }

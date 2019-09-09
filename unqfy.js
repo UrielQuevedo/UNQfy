@@ -69,17 +69,19 @@ class UNQfy {
     return newTrack;
   }
 
-  getArtistById(id) {
-    return this.artists.find(artist => 
-      artist.id === parseInt(id)
+  searchElementById(list, id) {
+    return list.find(elem => 
+      elem.id === parseInt(id)
     );
+  }
+
+  getArtistById(id) {
+    return this.searchElementById(this.artists, id);
   }
 
   getAlbumById(id) {
     const albums = this.getAllAlbums();
-    return albums.find(album =>
-      album.id === parseInt(id)
-    );
+    return this.searchElementById(albums, id);
   }
 
   getAllAlbums() {
@@ -130,7 +132,7 @@ class UNQfy {
   }
 
   getPlaylistById(id) {
-    return this.playlists.find( playlist => playlist.id === parseInt(id));
+    return this.searchElementById(this.playlists, id);
   }
 
   getListByName(list, name) {

@@ -6,6 +6,7 @@ const Artist = require('./artist');
 const Album = require('./album');
 const Playlist = require('./playlist');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
+const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
 
 class UNQfy {
 
@@ -84,7 +85,12 @@ class UNQfy {
     return this.searchElementById(this.artists, id);
   }
 
-  getAlbumById(id) { return this.searchElementById(this.getAllAlbums(), id); }
+  getAlbumById(id) { 
+    if(this.searchElementById(this.getAllAlbums(), id) == undefined) {
+      throw new NonExistentAlbumException(id);
+    }
+    return this.searchElementById(this.getAllAlbums(),id);
+  }
 
   getAllAlbums() {
     let albums = [];
@@ -125,7 +131,7 @@ class UNQfy {
     );
   }
 
-  getAlbumByArtist(artistId) { return this.getArtistById(artistId).albums; }
+  getAlbumsByArtist(artistId) { return this.getArtistById(artistId).albums; }
 
   getTracksByAlbum(albumId) { return this.getAlbumById(albumId).tracks; }
 

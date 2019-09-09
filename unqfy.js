@@ -13,6 +13,7 @@ class UNQfy {
     this.artists = [];
     this.playlists = [];
     this.idGenerator = 0;
+    this.tracks = [];
   }
   
   // artistData: objeto JS con los datos necesarios para crear un artista
@@ -174,8 +175,11 @@ class UNQfy {
       * un metodo duration() que retorne la duración de la playlist.
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
-    const newPlaylist = new new Playlist(this.idGenerator, name, genresToInclude, maxDuration);
+    const newPlaylist = new Playlist(this.idGenerator, name, genresToInclude, maxDuration);
+    this.idGenerator++;
+    newPlaylist.addTracks(this.getTracksMatchingGenres(genresToInclude));
     this.playlists.push(newPlaylist);
+    return newPlaylist;
   }
 
   save(filename) {

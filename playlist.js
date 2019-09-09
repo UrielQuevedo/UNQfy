@@ -12,7 +12,11 @@ class Playlist {
     return this.name;
   }
 
-  getDuration() {
+  getGenresToInclude() {
+    return this.getGenresToInclude;
+  }
+
+  duration() {
     return this.maxDuration;
   }
 
@@ -20,9 +24,13 @@ class Playlist {
     this.tracks.push(track);
   }
 
+  addTracks(tracks) {
+    this.tracks.concat(tracks);
+  }
+
   // retorna true si aTrack se encuentra en la playlist
   hasTrack(aTrack) {
-    return this.tracks.find(track => track.name == aTrack.name);
+    return this.tracks.includes(aTrack);
   }
 
 }

@@ -121,6 +121,12 @@ function main() {
     break;
   }
 
+  case 'createPlaylist': {
+    const playlist = unqfy.createPlaylist(params[1],params[2],params[3]);
+    console.log(playlist);
+    break;
+  }
+
   default:{
     console.log('No existe el comando dado');
   }

@@ -139,7 +139,10 @@ class UNQfy {
   // artistName: nombre de artista(string)
   // retorna: los tracks interpredatos por el artista con nombre artistName
   getTracksMatchingArtist(artistName) {
-
+    const artist = this.artists.find( artist => 
+      artist.name.toLowerCase() === artistName.toLowerCase()  
+    );
+    return artist.getAllTracks();
   }
 
 

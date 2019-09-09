@@ -103,6 +103,12 @@ function main() {
     break;
   }
 
+  case 'tracksMatchingArtist': {
+    const tracks = unqfy.getTracksMatchingArtist(params[1]);
+    console.log(tracks);
+    break;
+  }
+
   default:{
     console.log('No existe el comando dado');
   }

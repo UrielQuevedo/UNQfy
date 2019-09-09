@@ -33,6 +33,15 @@ class Artist {
     );
   }
 
+  getAllTracks() {
+    let tracks = new Array();
+    this.albums.forEach(album => {
+      tracks = new Array(...tracks,...album.tracks);
+    });
+    const uniqueTracks = new Set(tracks);
+    return Array.from(uniqueTracks);
+  }
+
 }
 
 module.exports = Artist;

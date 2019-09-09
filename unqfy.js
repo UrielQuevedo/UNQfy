@@ -1,10 +1,14 @@
 
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
-
+const Track = require('./track');
 
 class UNQfy {
 
+  constructor() {
+    this.tracks = [];
+  }
+  
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
   //   artistData.country (string)

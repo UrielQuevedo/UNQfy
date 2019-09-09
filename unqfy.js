@@ -7,11 +7,17 @@ const Album = require('./album');
 
 class UNQfy {
 
-  constructor(_artists) {
+  constructor(_artists, _albums) {
     if(_artists !== undefined){
       this.artists = _artists;//Array<Artista>
     } else {
       this.artists = [];
+    }
+    
+    if(_albums !== undefined){
+      this.albums = _albums;//Array<Artista>
+    } else {
+      this.albums = [];
     }
   }
   
@@ -42,6 +48,7 @@ class UNQfy {
   */
     const artist = this.getArtistById(artistId);
     const newAlbum = new Album(1, albumData.name, albumData.year, artist);
+    this.albums.push(newAlbum);
     artist.addAlbum(newAlbum);
   }
 
@@ -58,6 +65,9 @@ class UNQfy {
       - una propiedad duration (number),
       - una propiedad genres (lista de strings)
   */
+    const album = this.getAlbumById(albumId);
+    const newTrack = new Track(1, trackData.name, trackData.duration, trackData.genres, album);
+    album.addTrack(newTrack);
   }
 
   getArtistById(id) {
@@ -67,7 +77,9 @@ class UNQfy {
   }
 
   getAlbumById(id) {
-
+    return this.albums.find(album =>
+      album.id === parseInt(id)
+    );
   }
 
   getTrackById(id) {
@@ -118,7 +130,7 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy, Artist, Album];
+    const classes = [UNQfy, Artist, Album, Track];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

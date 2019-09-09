@@ -5,6 +5,7 @@ class Album {
     this.name = name;
     this.year = year;
     this.artist = artist;
+    this.tracks = [];
   }
 
   getId() {
@@ -21,6 +22,10 @@ class Album {
 
   getArtist() {
     return this.artist;
+  }
+
+  addTrack(track) {
+    this.tracks.push(track);
   }
 
 }

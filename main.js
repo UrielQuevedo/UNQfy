@@ -64,6 +64,12 @@ function main() {
     break;
   } 
 
+  case 'addTrack':{
+    unqfy.addTrack(params[1], {name: params[2], duration: params[3], genres: params[4]});
+    console.log(unqfy.getAlbumById(params[1]));
+    break;
+  } 
+
   default:{
     console.log('No existe el comando dado');
   }

@@ -133,6 +133,27 @@ class UNQfy {
     return this.playlists.find( playlist => playlist.id === parseInt(id));
   }
 
+  getListByName(list, name) {
+    return list.filter( elem => !elem.name.toLowerCase().includes(name));
+  }
+
+  getAllTracks() {
+    let tracks = [];
+    this.artists.forEach(artist => {
+      tracks = tracks.concat(this.getTracksMatchingArtist(artist));
+    });
+    return tracks;
+  }
+
+  searchByName(name) {
+    return {
+      artists: this.getListByName(this.artists, name),
+      albums: this.getListByName(this.getAllAlbums(), name),
+      tracks: this.getListByName(this.getAllTracks(), name),
+      //playlist: this.getListByName(this.playlists, name)
+    };
+  }
+
   // genres: array de generos(strings)
   // retorna: los tracks que contenga alguno de los generos en el parametro genres
   getTracksMatchingGenres(genres) {
@@ -152,7 +173,6 @@ class UNQfy {
     );
     return artist.getAllTracks();
   }
-
 
   // name: nombre de la playlist
   // genresToInclude: array de generos

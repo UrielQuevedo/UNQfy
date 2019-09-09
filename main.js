@@ -115,6 +115,12 @@ function main() {
     break;
   }
 
+  case 'searchByName': {
+    const contains = unqfy.searchByName(params[2]);
+    console.log(contains);
+    break;
+  }
+
   default:{
     console.log('No existe el comando dado');
   }

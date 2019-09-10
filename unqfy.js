@@ -5,6 +5,7 @@ const Track = require('./track');
 const Artist = require('./artist');
 const Album = require('./album');
 const Playlist = require('./playlist');
+const User = require('./user');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
@@ -16,6 +17,7 @@ class UNQfy {
     this.playlists = [];
     this.idGenerator = 0;
     this.tracks = [];
+    this.users = [];
   }
 
   // artistData: objeto JS con los datos necesarios para crear un artista
@@ -71,6 +73,17 @@ class UNQfy {
     this.idGenerator++;
     album.addTrack(newTrack);
     return newTrack;
+  }
+
+  addUser(name) {
+    const user = new User(this.idGenerator, name);
+    this.idGenerator++;
+    this.users.push(user);
+    return user;
+  }
+
+  getUser(userId) {
+    return this.users.some( user => user.id === parseInt(userId));
   }
 
   searchElementById(list, id) {
@@ -210,7 +223,7 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy, Artist, Album, Track, Playlist];
+    const classes = [UNQfy, Artist, Album, Track, Playlist, User];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

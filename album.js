@@ -2,7 +2,7 @@ const TheTrackWithThatNameAlreadyExistsException = require('./exceptions/thetrac
 
 class Album {
 
-  constructor(id,name,year,artist) {
+  constructor(id,name,year) {
     this.id = id;
     this.name = name;
     this.year = year;

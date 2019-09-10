@@ -53,14 +53,14 @@ function main() {
   switch (params[0])
   {
   case 'addArtist':{
-    unqfy.addArtist({name: params[1], country: params[2]});
-    console.log(unqfy.artists);
+    const artist = unqfy.addArtist({name: params[1], country: params[2]});
+    console.log(artist);
     break;
   } 
 
   case 'addAlbum':{
-    unqfy.addAlbum(params[1], {name: params[2], year: params[3]});
-    console.log(unqfy.getArtistById(params[1]));
+    const album = unqfy.addAlbum(params[1], {name: params[2], year: params[3]});
+    console.log(album);
     break;
   } 
 
@@ -146,6 +146,33 @@ function main() {
     break;
   }
 
+  case 'addUser': {
+    const user = unqfy.addUser(params[1]);
+    console.log(user);
+    break;
+  }
+
+  case 'hear': {
+    const user = unqfy.getUser(params[1]);
+    const track = unqfy.getTrackById(params[2]);
+    user.listenTrack(track);
+    break;
+  }
+
+  case 'tracksHeard': {
+    const user = unqfy.getUser(params[1]);
+    const tracks = user.getTracksHeard();
+    console.log(tracks);
+    break;
+  }
+
+  case 'timesHeard': {
+    const user = unqfy.getUser(params[1]);
+    const times = user.manyTimesListenTrack(params[2]);
+    console.log(times);
+    break;
+  }
+  
   default:{
     console.log('No existe el comando dado');
   }

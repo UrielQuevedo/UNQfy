@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>10</y>
+      <w>400</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>UNQfy
+--
+--
+addArtist(artistData): Artist
+addAlbum(artistId, albumData): Album
+addTrack(albumId, trackData): Track
+getArtistById: Artist
+getAlbumById: Album
+getTrackById: Track
+getAllAlbums: List&lt;Album&gt;
+getAllTracks: List&lt;Track&gt;
+getPlaylistById: Playlist
+getTracksMatchingGenres(genres): List&lt;Track&gt;
+getTracksMatchingArtist(artistName): List&lt;Track&gt;
+removeTrack(trackId): void
+removeAlbum(albumId): void
+removeArtist(artistId): void
+createPlaylist(name, genresToInclude, maxDuration): Playlist
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>510</y>
+      <w>240</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Track
+--
+id: Long
+name: String
+duration: Int
+genres: List&lt;String&gt;
+--
+getAlbum(): Album
+getGenres(): List&lt;String&gt;
+isGenres(genres): Boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>670</x>
+      <y>510</y>
+      <w>230</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Album
+--
+id: Long
+name: String
+year: Int
+--
+addTrack(track): void
+removeTrack(trackId): void
+getArtist(): Artist
+getTrack(trackId): Track
+ifContainsTrack(trackId): Boolean
+getTracksByGenres(genres): List&lt;Track&gt;
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1090</x>
+      <y>500</y>
+      <w>220</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Artist
+--
+id: Long
+name: String
+country: String
+-- 
+addAlbum(albumId): void
+getAlbums(): List&lt;Album&gt;
+removeAlbum(albumId): void
+getAllTracks(): List&lt;Track&gt;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>90</y>
+      <w>240</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>Playlist
+--
+id: Long
+name: String
+genresToInclude: List&lt;String&gt;
+tracks: List&lt;Track&gt;
+maxDuration: Int
+--
+duration(): Int
+hasTrack(aTrack): Boolean}
+getGenresToInclude(): List&lt;String&gt;
+addTrack(track): void
+addTracks(tracks): void
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>130</y>
+      <w>290</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+* artists</panel_attributes>
+    <additional_attributes>270.0;370.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>140</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+* playlists</panel_attributes>
+    <additional_attributes>10.0;90.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>620</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+* albums</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>610</y>
+      <w>230</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+* tracks </panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>660</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+1 artist</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>670</y>
+      <w>230</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+1 album</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>

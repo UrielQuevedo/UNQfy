@@ -69,6 +69,25 @@ function main() {
     console.log(track);
     break;
   }
+  
+  case 'getArtist': {
+    const artist = unqfy.getArtistById(params[1]);
+    console.log(artist);
+    break;
+  }
+
+  case 'getAlbum': {
+    const album = unqfy.getAlbumById(params[1]);
+    console.log(album);
+    break;
+  }
+
+  case 'getTrack': {
+    const track = unqfy.getTrackById(params[1]);
+    console.log(track);
+    break;
+  }
+
   case 'removeArtist':{
     unqfy.removeArtist(params[1]);
     console.log(unqfy.artists);

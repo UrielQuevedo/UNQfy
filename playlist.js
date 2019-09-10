@@ -3,8 +3,8 @@ class Playlist {
   constructor(id, name, genresToInclude, maxDuration) {
     this.id = id;
     this.name = name;
-    this.genresToInclude = genresToInclude;
     this.tracks = [];
+    this.genresToInclude = genresToInclude;
     this.maxDuration = maxDuration;
   }
 
@@ -17,15 +17,15 @@ class Playlist {
   }
 
   duration() {
-    return this.maxDuration;
+    let duration = 0;
+    this.tracks.forEach( track => duration += track.duration);
+    return duration;
   }
 
   addTrack(track) {
-    this.tracks.push(track);
-  }
-
-  addTracks(tracks) {
-    this.tracks.concat(tracks);
+    if(this.duration() + track.duration <= this.maxDuration) {
+      this.tracks.push(track);
+    }
   }
 
   // retorna true si aTrack se encuentra en la playlist

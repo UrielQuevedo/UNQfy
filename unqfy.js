@@ -79,17 +79,19 @@ class UNQfy {
   }
 
   getArtistById(id) { 
-    if(this.searchElementById(this.artists, id) == undefined) {
+    const element = this.searchElementById(this.artists, id);
+    if(element === undefined) {
       throw new NonExistentArtistException(id);
     } 
-    return this.searchElementById(this.artists, id);
+    return element;
   }
 
   getAlbumById(id) { 
-    if(this.searchElementById(this.getAllAlbums(), id) == undefined) {
+    const element = this.searchElementById(this.getAllAlbums(), id);
+    if(element === undefined) {
       throw new NonExistentAlbumException(id);
     }
-    return this.searchElementById(this.getAllAlbums(),id);
+    return element;
   }
 
   getAllAlbums() {
@@ -152,7 +154,7 @@ class UNQfy {
       artists: this.getListByName(this.artists, name),
       albums: this.getListByName(this.getAllAlbums(), name),
       tracks: this.getListByName(this.getAllTracks(), name),
-      //playlist: this.getListByName(this.playlists, name)
+      playlists: this.getListByName(this.playlists, name)
     };
   }
 
@@ -189,7 +191,8 @@ class UNQfy {
   */
     const newPlaylist = new Playlist(this.idGenerator, name, genresToInclude, maxDuration);
     this.idGenerator++;
-    newPlaylist.addTracks(this.getTracksMatchingGenres(genresToInclude));
+    const tracksMatchByGenres = this.getTracksMatchingGenres(genresToInclude);
+    tracksMatchByGenres.forEach(track => newPlaylist.addTrack(track));
     this.playlists.push(newPlaylist);
     return newPlaylist;
   }

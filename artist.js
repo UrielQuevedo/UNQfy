@@ -41,6 +41,10 @@ class Artist {
     return tracks;
   }
 
+  ifContainsAlbum(albumId) {
+    return this.albums.some( album => album.id === parseInt(albumId));
+  } 
+
   isName(name) {
     return this.name.toLowerCase() === name.toLowerCase();  
   }

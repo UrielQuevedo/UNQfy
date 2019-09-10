@@ -5,7 +5,6 @@ class Track {
     this.name = name;
     this.duration = duration;
     this.genres = genres;
-    this.album = album;
   }
 
   getId() {

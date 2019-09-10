@@ -6,7 +6,6 @@ class Album {
     this.id = id;
     this.name = name;
     this.year = year;
-    this.artist = artist;
     this.tracks = [];
   }
 

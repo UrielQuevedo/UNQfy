@@ -17,7 +17,7 @@ class UNQfy {
     this.idGenerator = 0;
     this.tracks = [];
   }
-  
+
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
   //   artistData.country (string)
@@ -31,7 +31,7 @@ class UNQfy {
     const newArtist = new Artist(this.idGenerator, artistData.name, artistData.country);
     this.idGenerator++;
     this.checkIfThereIsAnArtistWithThatName(artistData.name);
-    this.artists.push(artistData);
+    this.artists.push(newArtist);
     return newArtist;
   }
 
@@ -118,20 +118,12 @@ class UNQfy {
   }
 
   removeTrack(trackId) {
-    const track = this.getTrackById(trackId);
-    const album = this.getAlbumById(track.album.id);
-    // const album = this.getAllAlbums().find(album => 
-    //   album.ifContainsTrack(trackId)
-    // )
-    album.removeTrack(track.id);
+    const album = this.getAllAlbums().find(album =>album.ifContainsTrack(trackId));
+    album.removeTrack(trackId);
   }
 
   removeAlbum(albumId) {
-    const album = this.getAlbumById(albumId);
-    const artist = this.getArtistById(album.artist.id);
-    // const artist = this.artists.find(album => 
-    //   album.ifContainsAlbum(albumId)
-    // )
+    const artist = this.artists.find(artist => artist.ifContainsAlbum(albumId));
     artist.removeAlbum(albumId);
   }
 

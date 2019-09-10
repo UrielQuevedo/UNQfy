@@ -83,7 +83,7 @@ class UNQfy {
   }
 
   getUser(userId) {
-    return this.users.some( user => user.id === parseInt(userId));
+    return this.users.find( user => user.id === parseInt(userId));
   }
 
   searchElementById(list, id) {

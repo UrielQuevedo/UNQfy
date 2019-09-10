@@ -152,6 +152,12 @@ function main() {
     break;
   }
 
+  case 'getUser': {
+    const user = unqfy.getUser(params[1]);
+    console.log(user);
+    break;
+  }
+
   case 'hear': {
     const user = unqfy.getUser(params[1]);
     const track = unqfy.getTrackById(params[2]);

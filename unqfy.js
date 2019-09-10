@@ -7,7 +7,7 @@ const Album = require('./album');
 const Playlist = require('./playlist');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
-
+const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
 class UNQfy {
 
   constructor() {
@@ -30,7 +30,8 @@ class UNQfy {
   */
     const newArtist = new Artist(this.idGenerator, artistData.name, artistData.country);
     this.idGenerator++;
-    this.artists.push(newArtist);
+    this.checkIfThereIsAnArtistWithThatName(artistData.name);
+    this.artists.push(artistData);
     return newArtist;
   }
 
@@ -76,6 +77,13 @@ class UNQfy {
     return list.find(elem => 
       elem.id === parseInt(id)
     );
+  }
+
+  checkIfThereIsAnArtistWithThatName(artistName) {
+    const artist = this.artists.find(artist => artist.name === artistName);
+    if(artist !== undefined) {
+      throw new TheArtistWithThatNameAlreadyExistsException(artistName);
+    }
   }
 
   getArtistById(id) { 

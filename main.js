@@ -60,7 +60,7 @@ function main() {
 
   case 'addAlbum':{
     unqfy.addAlbum(params[1], {name: params[2], year: params[3]});
-    console.log(unqfy.getAlbumById(params[1]));
+    console.log(unqfy.getArtistById(params[1]));
     break;
   } 
 

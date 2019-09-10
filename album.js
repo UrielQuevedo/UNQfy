@@ -1,3 +1,5 @@
+const TheTrackWithThatNameAlreadyExistsException = require('./exceptions/thetrackwiththatnamealreadyexistsexception');
+
 class Album {
 
   constructor(id,name,year,artist) {
@@ -24,8 +26,12 @@ class Album {
     return this.artist;
   }
 
-  addTrack(track) {
-    this.tracks.push(track);
+  addTrack(aTrack) {
+    const track = this.tracks.find(track => track.name === aTrack.name);
+    if(track !== undefined) {
+      throw new TheTrackWithThatNameAlreadyExistsException(aTrack.name);
+    }
+    this.tracks.push(aTrack);
   }
 
   getTrack(trackId) {
@@ -36,7 +42,7 @@ class Album {
 
   ifContainsTrack(trackId) {
     return this.tracks.some( track => track.id === parseInt(trackId));
-  }
+  } 
 
   removeTrack(trackId) {
     this.tracks = this.tracks.filter( track => 

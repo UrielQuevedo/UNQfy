@@ -1,0 +1,32 @@
+node main.js addArtist "dani" "arg"
+node main.js addArtist "dani" "arg" (exception)
+node main.js addAlbum 0 "nuevoalbum" 2019
+node main.js addTrack 1 "temita" 2019
+node main.js addTrack 1 "temita" 2019 (exception)
+node main.js getArtist 0
+node main.js getArtist 100 (exception)
+node main.js getAlbum 1
+node main.js getAlbum 100 (exception)
+node main.js getTrack 2
+node main.js revemoArtist 0
+node main.js removeAlbum 1
+node main.js removeTrack 2
+node main.js allArtists 
+node main.js allAlbumsByArtist 0
+node main.js allAlbumsByArtist 45 (exception)
+node main.js allTracksByAlbum 1 
+node main.js allTracksByAlbum 123 (exception)
+node main.js tracksMatchingArtist "dani"  -- ver
+node main.js tracksMatchingGenres ["rock"] -- ver
+node main.js searchByName "dani"
+node main.js createPlaylist "miplaylist" ["rock"] 3000 -- ver
+node main.js addUser "uri"
+node main.js hear 7 6
+node main.js timesHeard 7 6
+node main.js tracksHeard 7
+node main.js getUser 7
+
+
+
+
+

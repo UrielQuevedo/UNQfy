@@ -47,7 +47,7 @@ class UNQfy {
      - una propiedad year (number)
   */
     const artist = this.getArtistById(artistId);
-    const newAlbum = new Album(this.idGenerator, albumData.name, albumData.year, artist);
+    const newAlbum = new Album(this.idGenerator, albumData.name, albumData.year);
     this.idGenerator++;
     artist.addAlbum(newAlbum);
     return newAlbum;
@@ -67,7 +67,7 @@ class UNQfy {
       - una propiedad genres (lista de strings)
   */
     const album = this.getAlbumById(albumId);
-    const newTrack = new Track(this.idGenerator, trackData.name, trackData.duration, trackData.genres, album);
+    const newTrack = new Track(this.idGenerator, trackData.name, trackData.duration, trackData.genres);
     this.idGenerator++;
     album.addTrack(newTrack);
     return newTrack;

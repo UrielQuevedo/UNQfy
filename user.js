@@ -15,6 +15,7 @@ class User {
   }
   
   listenTrack(track) {
+    track.listened();
     this.tracksHeard.push(track);
   }
 

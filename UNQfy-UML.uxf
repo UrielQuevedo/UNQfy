@@ -97,6 +97,7 @@ addAlbum(albumId): void
 getAlbums(): List&lt;Album&gt;
 removeAlbum(albumId): void
 getAllTracks(): List&lt;Track&gt;
+threeMostListenedTracks(): List&lt;Track&gt;
 
 </panel_attributes>
     <additional_attributes/>
@@ -175,5 +176,59 @@ addTracks(tracks): void
     <panel_attributes>lt=&lt;&lt;&lt;-
 * tracks </panel_attributes>
     <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1370</x>
+      <y>30</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::FatClass
+{Some Properties}
+--
+-id: Long
+_-ClassAttribute: Long_
+--
+#Operation(i: int): int
+/+AbstractOperation()/
+--
+Responsibilities
+-- Resp1
+*-- Resp2*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1150</x>
+      <y>20</y>
+      <w>200</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>User
+--
+id: Long
+name: String
+tracksHeards: List&lt;Track&gt;
+--
+listenTrack(track): void
+getTracksHeard(): List&lt;Track&gt;
+manyTimesListenTrack(trackId): Int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>100</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+* users</panel_attributes>
+    <additional_attributes>220.0;20.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>

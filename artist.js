@@ -49,6 +49,10 @@ class Artist {
     return this.name.toLowerCase() === name.toLowerCase();  
   }
 
+  deleteInfo() {
+    this.albums.forEach(album => album.deleteInfo());
+  }
+
   threeMostListenedTracks() {
     const tracksMostListened = this.getAllTracks().sort((t1,t2) => t2.getHeardTime() - t1.getHeardTime()).slice(0,3);
     const namesMostListened = tracksMostListened.map(track => track.name);

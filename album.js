@@ -49,6 +49,10 @@ class Album {
     );
   }
 
+  deleteInfo() {
+    this.tracks.forEach(track => track.deleteInfo());
+  }
+
   getTracksByGenres(genres) {
     return this.tracks.filter( track => 
       track.isGenres(genres)  

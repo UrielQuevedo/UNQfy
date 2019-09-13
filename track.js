@@ -4,6 +4,7 @@ class Track {
     this.id = id;
     this.name = name;
     this.duration = duration;
+    this.suscribePlayList = [];
     this.heardTimes = 0;
     if (genres === undefined) {
       this.genres = [];
@@ -34,6 +35,14 @@ class Track {
 
   getAlbum() {
     return this.album;
+  }
+
+  deleteInfo() {
+    this.suscribePlayList.forEach( playList => playList.removeTrack(this.id));
+  }
+
+  suscribeToPlayList(playList) {
+    this.suscribeToPlayList.push(playList);
   }
 
   isGenres(genres) {

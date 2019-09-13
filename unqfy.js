@@ -131,18 +131,24 @@ class UNQfy {
 
   removeTrack(trackId) {
     const album = this.getAllAlbums().find(album =>album.ifContainsTrack(trackId));
+    const track = this.getTrackById(trackId);
+    track.deleteInfo();
     album.removeTrack(trackId);
   }
 
   removeAlbum(albumId) {
     const artist = this.artists.find(artist => artist.ifContainsAlbum(albumId));
+    const album = this.getAlbumById(albumId);
+    album.deleteInfo();
     artist.removeAlbum(albumId);
   }
 
   removeArtist(artistId) {
+    const artistToDelete = this.getArtistById(artistId);
     this.artists = this.artists.filter( artist =>
       artist.id !== parseInt(artistId)
     );
+    artistToDelete.deleteInfo();
   }
 
   getAlbumsByArtist(artistId) { return this.getArtistById(artistId).albums; }

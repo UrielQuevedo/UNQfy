@@ -25,7 +25,12 @@ class Playlist {
   addTrack(track) {
     if(this.duration() + track.duration <= this.maxDuration) {
       this.tracks.push(track);
+      track.suscribeToPlayList(this);
     }
+  }
+
+  removeTrack(trackId) {
+    this.tracks = this.tracks.filter(track => track !== parseInt(trackId));
   }
 
   // retorna true si aTrack se encuentra en la playlist

@@ -16,7 +16,6 @@ class UNQfy {
     this.artists = [];
     this.playlists = [];
     this.idGenerator = 0;
-    this.tracks = [];
     this.users = [];
   }
 

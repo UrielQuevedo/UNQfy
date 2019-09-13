@@ -77,7 +77,7 @@ function main() {
   }
 
   case 'getAlbum': {
-    const album = unqfy.getAlbum.getAlbumById(params[1]);
+    const album = unqfy.getAlbumById(params[1]);
     console.log(album);
     break;
   }
@@ -181,7 +181,14 @@ function main() {
     break;
   }
   
-  default:{
+  case 'tracksMostListened': {
+    const artist = unqfy.getArtistById(params[1]);
+    const tracks = artist.threeMostListenedTracks();
+    console.log(tracks);
+    break;
+  }
+  
+  default: {
     console.log('No existe el comando dado');
   }
   }

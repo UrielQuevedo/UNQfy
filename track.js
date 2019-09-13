@@ -5,7 +5,11 @@ class Track {
     this.name = name;
     this.duration = duration;
     this.heardTimes = 0;
-    this.genres = genres;
+    if (genres === undefined) {
+      this.genres = [];
+    } else {
+      this.genres = genres;
+    }
   }
 
   getId() {

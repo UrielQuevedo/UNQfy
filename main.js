@@ -65,7 +65,7 @@ function main() {
   } 
 
   case 'addTrack':{
-    const track = unqfy.addTrack(params[1], {name: params[2], duration: params[3], genres: params[4]});
+    const track = unqfy.addTrack(params[1], {name: params[2], duration: params[3], genres: params.slice(4)});
     console.log(track);
     break;
   }
@@ -77,7 +77,7 @@ function main() {
   }
 
   case 'getAlbum': {
-    const album = unqfy.getAlbumById(params[1]);
+    const album = unqfy.getAlbum.getAlbumById(params[1]);
     console.log(album);
     break;
   }
@@ -123,19 +123,21 @@ function main() {
   }
 
   case 'tracksMatchingArtist': {
-    const tracks = unqfy.getTracksMatchingArtist(params[1]);
+    const artist = unqfy.getArtistById(params[1]);
+    const tracks = unqfy.getTracksMatchingArtist(artist);
     console.log(tracks);
     break;
   }
 
   case 'tracksMatchingGenres': {
-    const tracks = unqfy.getTracksMatchingGenres(params[2]);
+    //const tracks = params[1];
+    const tracks = unqfy.getTracksMatchingGenres(params.slice(1));
     console.log(tracks);
     break;
   }
 
   case 'searchByName': {
-    const contains = unqfy.searchByName(params[2]);
+    const contains = unqfy.searchByName(params[1]);
     console.log(contains);
     break;
   }

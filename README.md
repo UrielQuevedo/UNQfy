@@ -13,9 +13,9 @@ Los comandos que se pueden utilizar por consola son los siguientes:
 
 (Muestra los comandos por consola)
 
-help
+_help
 
-node main.js help
+node main.js _help
 
 --------------------------------------------------------------------------
 

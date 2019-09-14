@@ -167,7 +167,7 @@ const commands = {
   timesHeard: _timesHeard,
   tracksMostListened: _tracksMostListened,
   getPlaylist: _getPlaylist,
-  help: _help,
+  helps: _help,
 };
 
 

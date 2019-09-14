@@ -9,6 +9,13 @@ node main.js comandoAUtilizar parametros
 
 Los comandos que se pueden utilizar por consola son los siguientes:
 
+--------------------------------------------------------------------------
+
+(Muestra los comandos por consola)
+
+help
+
+node main.js help
 
 --------------------------------------------------------------------------
 

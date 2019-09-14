@@ -157,7 +157,7 @@ class UNQfy {
 
   getPlaylistById(id) { return this.searchElementById(this.playlists, id); }
 
-  getListByName(list, name) { return list.filter( elem => elem.name.toLowerCase().includes(name)); }
+  getListByName(list, name) { return list.filter( elem => !elem.name.toLowerCase().includes(name)); }
 
   getAllTracks() {
     let tracks = [];

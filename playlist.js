@@ -30,7 +30,7 @@ class Playlist {
   }
 
   removeTrack(trackId) {
-    this.tracks = this.tracks.filter(track => track !== parseInt(trackId));
+    this.tracks = this.tracks.filter(track => track.id !== parseInt(trackId));
   }
 
   // retorna true si aTrack se encuentra en la playlist

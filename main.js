@@ -46,11 +46,8 @@ function saveUNQfy(unqfy, filename = 'data.json') {
 
 */
 
-function main() {
-  const params = process.argv.slice(2);
-  const unqfy = getUNQfy('database');
-
-  switch (params[0])
+function execute(command, params, unqfy) {
+  switch (command)
   {
   case 'addArtist':{
     const artist = unqfy.addArtist({name: params[1], country: params[2]});
@@ -130,7 +127,6 @@ function main() {
   }
 
   case 'tracksMatchingGenres': {
-    //const tracks = params[1];
     const tracks = unqfy.getTracksMatchingGenres(params.slice(1));
     console.log(tracks);
     break;
@@ -187,11 +183,24 @@ function main() {
     console.log(tracks);
     break;
   }
+
+  case 'getPlaylist': {
+    const playlist = unqfy.getPlaylistById(params[1]);
+    console.log(playlist);
+    break;
+  }
   
   default: {
     console.log('No existe el comando dado');
   }
   }
+}
+
+function main() {
+  const params = process.argv.slice(2);
+  const unqfy = getUNQfy('database');
+  
+  execute(params[0], params, unqfy);
 
   saveUNQfy(unqfy,'database');
 }

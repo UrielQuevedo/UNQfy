@@ -42,7 +42,7 @@ class Track {
   }
 
   suscribeToPlayList(playList) {
-    this.suscribeToPlayList.push(playList);
+    this.suscribePlayList.push(playList);
   }
 
   isGenres(genres) {

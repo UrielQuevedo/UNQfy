@@ -1,7 +1,7 @@
 # UNQfy
 
 Diagrama de clases:
---LINK
+Exportado como PDF.
 
 Los comandos se utilizan de la siguiente forma en consola:
 

@@ -9,13 +9,14 @@ const User = require('./user');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
-class UNQfy {
+const IdGenerator = require('./idGenerator');
+
+class UNQfy extends IdGenerator {
 
   constructor() {
-    
+    super();
     this.artists = [];
     this.playlists = [];
-    this.idGenerator = 0;
     this.users = [];
   }
 
@@ -29,8 +30,7 @@ class UNQfy {
     - una propiedad name (string)
     - una propiedad country (string)
   */
-    const newArtist = new Artist(this.idGenerator, artistData.name, artistData.country);
-    this.idGenerator++;
+    const newArtist = new Artist(this.generateId(),artistData.name, artistData.country);
     this.checkIfThereIsAnArtistWithThatName(artistData.name);
     this.artists.push(newArtist);
     return newArtist;
@@ -48,8 +48,7 @@ class UNQfy {
      - una propiedad year (number)
   */
     const artist = this.getArtistById(artistId);
-    const newAlbum = new Album(this.idGenerator, albumData.name, albumData.year);
-    this.idGenerator++;
+    const newAlbum = new Album(this.generateId(), albumData.name, albumData.year);
     artist.addAlbum(newAlbum);
     return newAlbum;
   }
@@ -68,15 +67,13 @@ class UNQfy {
       - una propiedad genres (lista de strings)
   */
     const album = this.getAlbumById(albumId);
-    const newTrack = new Track(this.idGenerator, trackData.name, trackData.duration, trackData.genres);
-    this.idGenerator++;
+    const newTrack = new Track(this.generateId(), trackData.name, trackData.duration, trackData.genres);
     album.addTrack(newTrack);
     return newTrack;
   }
 
   addUser(name) {
-    const user = new User(this.idGenerator, name);
-    this.idGenerator++;
+    const user = new User(this.generateId(), name);
     this.users.push(user);
     return user;
   }
@@ -207,8 +204,7 @@ class UNQfy {
       * un metodo duration() que retorne la duración de la playlist.
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
-    const newPlaylist = new Playlist(this.idGenerator, name, genresToInclude, maxDuration);
-    this.idGenerator++;
+    const newPlaylist = new Playlist(this.generateId(), name, genresToInclude, maxDuration);
     const tracksMatchByGenres = this.getTracksMatchingGenres(genresToInclude);
     tracksMatchByGenres.forEach(track => newPlaylist.addTrack(track));
     this.playlists.push(newPlaylist);

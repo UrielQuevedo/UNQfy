@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>10</zoom_level>
+  <zoom_level>11</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>10</y>
-      <w>400</w>
-      <h>300</h>
+      <x>638</x>
+      <y>176</y>
+      <w>440</w>
+      <h>330</h>
     </coordinates>
     <panel_attributes>UNQfy
 --
@@ -35,10 +35,10 @@ createPlaylist(name, genresToInclude, maxDuration): Playlist
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>510</y>
-      <w>240</w>
-      <h>280</h>
+      <x>297</x>
+      <y>693</y>
+      <w>264</w>
+      <h>308</h>
     </coordinates>
     <panel_attributes>Track
 --
@@ -56,10 +56,10 @@ isGenres(genres): Boolean
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>670</x>
-      <y>510</y>
-      <w>230</w>
-      <h>280</h>
+      <x>781</x>
+      <y>693</y>
+      <w>253</w>
+      <h>308</h>
     </coordinates>
     <panel_attributes>Album
 --
@@ -82,10 +82,10 @@ getTracksByGenres(genres): List&lt;Track&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1090</x>
-      <y>500</y>
-      <w>220</w>
-      <h>280</h>
+      <x>1254</x>
+      <y>682</y>
+      <w>242</w>
+      <h>308</h>
     </coordinates>
     <panel_attributes>Artist
 --
@@ -105,10 +105,10 @@ threeMostListenedTracks(): List&lt;Track&gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>120</x>
-      <y>90</y>
-      <w>240</w>
-      <h>270</h>
+      <x>176</x>
+      <y>242</y>
+      <w>264</w>
+      <h>297</h>
     </coordinates>
     <panel_attributes>Playlist
 --
@@ -132,46 +132,46 @@ addTracks(tracks): void
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>930</x>
-      <y>130</y>
-      <w>290</w>
-      <h>390</h>
+      <x>1067</x>
+      <y>308</y>
+      <w>330</w>
+      <h>396</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 * artists</panel_attributes>
-    <additional_attributes>270.0;370.0;10.0;10.0</additional_attributes>
+    <additional_attributes>280.0;340.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>350</x>
-      <y>140</y>
-      <w>210</w>
-      <h>110</h>
+      <x>429</x>
+      <y>319</y>
+      <w>231</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 * playlists</panel_attributes>
-    <additional_attributes>10.0;90.0;190.0;10.0</additional_attributes>
+    <additional_attributes>10.0;70.0;190.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>620</y>
-      <w>220</w>
-      <h>40</h>
+      <x>1023</x>
+      <y>814</y>
+      <w>253</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 * albums</panel_attributes>
-    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>610</y>
-      <w>230</w>
-      <h>40</h>
+      <x>550</x>
+      <y>803</y>
+      <w>253</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 * tracks </panel_attributes>
@@ -180,33 +180,10 @@ addTracks(tracks): void
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1370</x>
-      <y>30</y>
-      <w>210</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
-Package::FatClass
-{Some Properties}
---
--id: Long
-_-ClassAttribute: Long_
---
-#Operation(i: int): int
-/+AbstractOperation()/
---
-Responsibilities
--- Resp1
-*-- Resp2*</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1150</x>
-      <y>20</y>
-      <w>200</w>
-      <h>230</h>
+      <x>1309</x>
+      <y>165</y>
+      <w>220</w>
+      <h>253</h>
     </coordinates>
     <panel_attributes>User
 --
@@ -222,13 +199,39 @@ manyTimesListenTrack(trackId): Int</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>930</x>
-      <y>100</y>
-      <w>240</w>
-      <h>50</h>
+      <x>1067</x>
+      <y>264</y>
+      <w>264</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 * users</panel_attributes>
-    <additional_attributes>220.0;20.0;10.0;30.0</additional_attributes>
+    <additional_attributes>220.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>0</y>
+      <w>187</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>IdGenerator
+--
+lastId: Long
+--
+generateId(): Long</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>847</x>
+      <y>66</y>
+      <w>33</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
 </diagram>

@@ -54,10 +54,7 @@ class Artist {
   }
 
   threeMostListenedTracks() {
-    const tracksMostListened = this.getAllTracks().sort((t1,t2) => t2.getHeardTime() - t1.getHeardTime()).slice(0,3);
-    const namesMostListened = tracksMostListened.map(track => track.name);
-    console.log('This is ' + namesMostListened);
-    return tracksMostListened;
+    return this.getAllTracks().sort((t1,t2) => t2.getHeardTime() - t1.getHeardTime()).slice(0,3);
   }
 
 }

@@ -228,10 +228,11 @@ generateId(): Long</panel_attributes>
     <coordinates>
       <x>847</x>
       <y>66</y>
-      <w>33</w>
+      <w>121</w>
       <h>132</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+1 idGenerator</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
 </diagram>

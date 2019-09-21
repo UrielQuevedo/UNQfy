@@ -11,10 +11,10 @@ const NonExistentAlbumException = require('./exceptions/nonexistentalbumexceptio
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
 const IdGenerator = require('./idGenerator');
 
-class UNQfy extends IdGenerator {
+class UNQfy {
 
   constructor() {
-    super();
+    this.idGenerator = new IdGenerator();
     this.artists = [];
     this.playlists = [];
     this.users = [];
@@ -30,7 +30,7 @@ class UNQfy extends IdGenerator {
     - una propiedad name (string)
     - una propiedad country (string)
   */
-    const newArtist = new Artist(this.generateId(),artistData.name, artistData.country);
+    const newArtist = new Artist(this.idGenerator.generateId(),artistData.name, artistData.country);
     this.checkIfThereIsAnArtistWithThatName(artistData.name);
     this.artists.push(newArtist);
     return newArtist;
@@ -48,7 +48,7 @@ class UNQfy extends IdGenerator {
      - una propiedad year (number)
   */
     const artist = this.getArtistById(artistId);
-    const newAlbum = new Album(this.generateId(), albumData.name, albumData.year);
+    const newAlbum = new Album(this.idGenerator.generateId(), albumData.name, albumData.year);
     artist.addAlbum(newAlbum);
     return newAlbum;
   }
@@ -67,13 +67,13 @@ class UNQfy extends IdGenerator {
       - una propiedad genres (lista de strings)
   */
     const album = this.getAlbumById(albumId);
-    const newTrack = new Track(this.generateId(), trackData.name, trackData.duration, trackData.genres);
+    const newTrack = new Track(this.idGenerator.generateId(), trackData.name, trackData.duration, trackData.genres);
     album.addTrack(newTrack);
     return newTrack;
   }
 
   addUser(name) {
-    const user = new User(this.generateId(), name);
+    const user = new User(this.idGenerator.generateId(), name);
     this.users.push(user);
     return user;
   }
@@ -204,7 +204,7 @@ class UNQfy extends IdGenerator {
       * un metodo duration() que retorne la duración de la playlist.
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
-    const newPlaylist = new Playlist(this.generateId(), name, genresToInclude, maxDuration);
+    const newPlaylist = new Playlist(this.idGenerator.generateId(), name, genresToInclude, maxDuration);
     const tracksMatchByGenres = this.getTracksMatchingGenres(genresToInclude);
     tracksMatchByGenres.forEach(track => newPlaylist.addTrack(track));
     this.playlists.push(newPlaylist);
@@ -224,7 +224,7 @@ class UNQfy extends IdGenerator {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy, Artist, Album, Track, Playlist, User];
+    const classes = [UNQfy, Artist, Album, Track, Playlist, User, IdGenerator];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

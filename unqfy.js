@@ -6,6 +6,7 @@ const Artist = require('./artist');
 const Album = require('./album');
 const Playlist = require('./playlist');
 const User = require('./user');
+const TrackNotFound = require('./exceptions/trackNotFound');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
@@ -126,6 +127,7 @@ class UNQfy {
     ).getTrack(id);
   }
 
+
   removeTrack(trackId) {
     const album = this.getAllAlbums().find(album =>album.ifContainsTrack(trackId));
     const track = this.getTrackById(trackId);
@@ -209,6 +211,19 @@ class UNQfy {
     tracksMatchByGenres.forEach(track => newPlaylist.addTrack(track));
     this.playlists.push(newPlaylist);
     return newPlaylist;
+  }
+
+  getTrackByName(name) {
+    const track = this.getAllTracks().find(track => track.name === name);
+    if(track === undefined) {
+      throw new TrackNotFound(name);
+    }
+    return track;
+  }
+
+  getLyricsByTrackName(trackName) {
+    const track = this.getTrackByName(trackName);
+    return track.getLyrics();
   }
 
   save(filename) {

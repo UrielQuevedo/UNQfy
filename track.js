@@ -1,3 +1,7 @@
+const rp = require('request-promise');
+
+const BASE_URL = 'http://api.musixmatch.com/ws/1.1';
+
 class Track {
 
   constructor(id,name,duration,genres) {
@@ -6,6 +10,7 @@ class Track {
     this.duration = duration;
     this.suscribePlayList = [];
     this.heardTimes = 0;
+    this.lyrics = null;
     if (genres === undefined) {
       this.genres = [];
     } else {
@@ -35,6 +40,61 @@ class Track {
 
   getAlbum() {
     return this.album;
+  }
+
+  getLyrics() {
+    if(this.lyrics === null) {
+      this.lyrics = this.searchTrackByNameSinceMusixMatch();
+      return this.lyrics;
+    }
+    return this.lyrics;
+  }
+
+  searchTrackByNameSinceMusixMatch() { 
+    rp.get(this.searchTrackByName(this.name))
+      .then((response) => {
+        const header = response.message.header;
+        const body = response.message.body;
+        if (header.status_code !== 200){
+          throw new Error('status code != 200');
+        }
+        const track = body.track_list[0].track;
+        const idTrack = track.track_id;
+        return rp.get(this.lyricsTrackById(idTrack));
+      })
+      .then((response) => {
+        const header = response.message.header;
+        const body = response.message.body;
+        if (header.status_code !== 200){
+          throw new Error('status code != 200');
+        }
+        const lyrics = body.lyrics.lyrics_body;
+        console.log(lyrics);
+        return lyrics;
+      })
+      .catch((error) => console.log('There was an error', error));
+  }
+
+  searchTrackByName(trackName) {
+    return {
+      uri: BASE_URL + '/track.search',
+      qs: {
+        apikey: '89e71fc51d656bfe9ba3e79f4c0da45d',
+        q_track: trackName,
+      },
+      json: true
+    };
+  }
+
+  lyricsTrackById(idTrack) {
+    return {
+      uri: BASE_URL + '/track.lyrics.get',
+      qs: {
+        apikey: '89e71fc51d656bfe9ba3e79f4c0da45d',
+        track_id: idTrack,
+      },
+      json: true
+    };
   }
 
   deleteInfo() {

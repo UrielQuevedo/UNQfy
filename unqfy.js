@@ -226,6 +226,10 @@ class UNQfy {
     return track.getLyrics();
   }
 
+  populateAlbumsForArtist(artistName) {
+      
+  }
+
   save(filename) {
     const listenersBkp = this.listeners;
     this.listeners = [];

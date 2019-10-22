@@ -223,7 +223,16 @@ class UNQfy {
 
   getLyricsByTrackName(trackName) {
     const track = this.getTrackByName(trackName);
-    return track.getLyrics();
+    track.getLyrics().then((response) => {
+      const header = response.message.header;
+      const body = response.message.body;
+      if (header.status_code !== 200){
+        throw new Error('status code != 200');
+      }
+      const lyrics = body.lyrics.lyrics_body;
+      console.log(lyrics);
+      return lyrics;
+    });
   }
 
   populateAlbumsForArtist(artistName) {

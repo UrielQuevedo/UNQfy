@@ -44,14 +44,16 @@ class Track {
 
   getLyrics() {
     if(this.lyrics === null) {
-      this.lyrics = this.searchTrackByNameSinceMusixMatch();
-      return this.lyrics;
+      console.log("entro");
+      return this.searchTrackByNameSinceMusixMatch();
+    
     }
+    console.log("no entro");
     return this.lyrics;
   }
 
   searchTrackByNameSinceMusixMatch() { 
-    rp.get(this.searchTrackByName(this.name))
+    return rp.get(this.searchTrackByName(this.name))
       .then((response) => {
         const header = response.message.header;
         const body = response.message.body;
@@ -60,17 +62,8 @@ class Track {
         }
         const track = body.track_list[0].track;
         const idTrack = track.track_id;
-        return rp.get(this.lyricsTrackById(idTrack));
-      })
-      .then((response) => {
-        const header = response.message.header;
-        const body = response.message.body;
-        if (header.status_code !== 200){
-          throw new Error('status code != 200');
-        }
-        const lyrics = body.lyrics.lyrics_body;
-        console.log(lyrics);
-        return lyrics;
+        this.lyrics = rp.get(this.lyricsTrackById(idTrack));
+        return this.lyrics;
       })
       .catch((error) => console.log('There was an error', error));
   }

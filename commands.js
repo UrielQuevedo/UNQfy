@@ -118,6 +118,7 @@ const _searchByName = (params, unqfy) =>{
 
 const _getLyricsByTrackName = (params, unqfy) =>{
   unqfy.getLyricsByTrackName(params[1]);
+  
 };
 
 const _help = () => {

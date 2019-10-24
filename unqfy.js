@@ -12,6 +12,7 @@ const NonExistentAlbumException = require('./exceptions/nonexistentalbumexceptio
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
 const IdGenerator = require('./idGenerator');
 
+
 class UNQfy {
 
   constructor() {

@@ -10,7 +10,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json()); 
 
 // routes 
-app.use('/',require('./routes/index'));
+app.use('/api/artists',require('./routes/artists'));
 
 // starting the server
 app.listen(app.get('port'), () => {

@@ -25,7 +25,13 @@ router.get('/:id', (req, res) => {
 }); 
 
 router.get('/', (req, res) => {
-        res.status(200).json(unqfy.artists);
+    const name = req.query.name;
+    if(name) {
+      res.status(200).json(unqfy.searchByName(name).artists);
+    }
+    else {
+    res.status(200).json(unqfy.artists);
+    }
 }); 
 
 router.put('/:id', (req, res) => {
@@ -55,5 +61,11 @@ router.delete('/:id', (req, res) => {
     }
 });
 
+/*
+router.get('/', (req, res) => {
+    const name = req.query.name;
+    res.status(200).json(unqfy.searchByName(name).artists);
+}); 
+*/
 
 module.exports = router;

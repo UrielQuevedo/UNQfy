@@ -43,4 +43,17 @@ router.put('/:id', (req, res) => {
     }
 });
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    try {
+        const artist = unqfy.getArtistById(id);
+        unqfy.removeArtist(artist.id);
+        res.status(204);
+    }
+    catch {
+        res.status(404).json({status:404, errorCode:"RESOURCE_NOT_FOUND"});
+    }
+});
+
+
 module.exports = router;

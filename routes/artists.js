@@ -4,13 +4,18 @@ const { UNQfy } = require('../unqfy');
 const unqfy = new UNQfy();
 
 router.post('/', (req, res) => {
-    const newArtist = req.body;
-    try {
-         res.status(201).json(unqfy.addArtist(newArtist));
+      const newArtist = req.body;
+      if(newArtist.name && newArtist.country) {
+        try {
+             res.status(201).json(unqfy.addArtist(newArtist));
+        }
+        catch {
+            res.status(409).json({status:409, errorCode:"RESOURCE_ALREADY_EXISTS"});
+        }
     }
-    catch {
-        res.status(409).json({status:409, errorCode:"RESOURCE_ALREADY_EXISTS"});
-    }
+    else {
+        res.status(400).json({status:400, errorCode:"BAD_REQUEST"});
+    } 
 });
 
 router.get('/:id', (req, res) => {
@@ -26,7 +31,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/', (req, res) => {
     const name = req.query.name;
-    if(name) {
+    if(name !== undefined) {
       res.status(200).json(unqfy.searchByName(name).artists);
     }
     else {

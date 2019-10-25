@@ -11,6 +11,7 @@ app.use(express.json());
 
 // routes 
 app.use('/api/artists',require('./routes/artists'));
+app.use('/api/tracks',require('./routes/tracks'));
 
 // starting the server
 app.listen(app.get('port'), () => {

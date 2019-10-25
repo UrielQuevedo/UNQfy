@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
       res.status(200).json(unqfy.searchByName(name).artists);
     }
     else {
-    res.status(200).json(unqfy.artists);
+      res.status(200).json(unqfy.artists);
     }
 }); 
 
@@ -54,18 +54,11 @@ router.delete('/:id', (req, res) => {
     try {
         const artist = unqfy.getArtistById(id);
         unqfy.removeArtist(artist.id);
-        res.status(204);
+        res.status(204).json({status:204});
     }
     catch {
         res.status(404).json({status:404, errorCode:"RESOURCE_NOT_FOUND"});
     }
 });
-
-/*
-router.get('/', (req, res) => {
-    const name = req.query.name;
-    res.status(200).json(unqfy.searchByName(name).artists);
-}); 
-*/
 
 module.exports = router;

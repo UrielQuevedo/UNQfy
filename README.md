@@ -161,16 +161,6 @@ node main.js removeTrack 2
 
 --------------------------------------------------------------------------
 
-DESING PATTERS
-
-Se utilizo un Observer para que, cuando eliminamos un artista, album o track
-tambien se eliminen los tracks de la playlist que se encuentran involucrados.
-
-ROLES
-
-Subject: Track
-Observer: Playlist
-
 
 
 

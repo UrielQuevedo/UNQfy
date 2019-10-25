@@ -5,9 +5,6 @@ const unqfy = new UNQfy();
 
 router.get('/:id/lyrics', (req, res) => {
   const { id } = req.params;
-  unqfy.addArtist({name:'Callejeros', country:'Argentina'});
-  unqfy.addAlbum(0,{name: 'Rocanroles sin destino', year: 2019});
-  unqfy.addTrack(1,{name: 'Rocanroles sin destino', duration: 500, genres: ['rock']}); 
   const track = unqfy.getTrackById(id);
   track.getLyrics()
     .then((response) => 

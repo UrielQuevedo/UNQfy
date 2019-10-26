@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/', (req, res) => {
     const name = req.query.name;
-    if(name !== undefined) {
+    if(name) {
       res.status(200).json(unqfy.searchByName(name).artists);
     }
     else {

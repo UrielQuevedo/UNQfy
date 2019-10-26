@@ -19,4 +19,44 @@ router.post('/', (req, res) => {
   }     
 });
 
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = unqfy.getUser(id);
+    res.status(200).json(user);
+  }
+  catch(error) {
+    res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
+  }
+}); 
+
+router.get('/', (req, res) => {
+  res.status(200).json(unqfy.users);
+}); 
+
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const newName = req.body.name;
+  try {
+    const user = unqfy.getUser(id);
+    user.name = newName;
+    res.status(200).json(user);
+  }
+  catch(error) {
+    res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
+  }
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  try {
+    unqfy.removeUser(id);
+    res.status(204).json({status:204});    
+  }
+  catch(error) {
+    res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
+  }
+});
+
+
 module.exports = router;

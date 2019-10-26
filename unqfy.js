@@ -7,6 +7,7 @@ const Album = require('./album');
 const Playlist = require('./playlist');
 const User = require('./user');
 const UserExist = require('./exceptions/userExist');
+const UserNotFound = require('./exceptions/userNotFound');
 const TrackNotFound = require('./exceptions/trackNotFound');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
@@ -90,7 +91,11 @@ class UNQfy {
   }
 
   getUser(userId) {
-    return this.users.find( user => user.id === parseInt(userId));
+    const user = this.users.find( user => user.id === parseInt(userId));
+    if(user === undefined) {
+      throw UserNotFound(user.name);
+    }
+    return user;
   }
 
   searchElementById(list, id) {
@@ -150,6 +155,11 @@ class UNQfy {
     const album = this.getAlbumById(albumId);
     album.deleteInfo();
     artist.removeAlbum(albumId);
+  }
+
+  removeUser(userId) {
+    this.getUser(userId);
+    this.users = this.users.filter(user => user.id !== userId);
   }
 
   removeArtist(artistId) {

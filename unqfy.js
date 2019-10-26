@@ -6,6 +6,7 @@ const Artist = require('./artist');
 const Album = require('./album');
 const Playlist = require('./playlist');
 const User = require('./user');
+const UserExist = require('./exceptions/userExist');
 const TrackNotFound = require('./exceptions/trackNotFound');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
@@ -76,8 +77,16 @@ class UNQfy {
 
   addUser(name) {
     const user = new User(this.idGenerator.generateId(), name);
+    this.checkUserName(name);
     this.users.push(user);
     return user;
+  }
+
+  checkUserName(name) {
+    const user = this.users.find(user => user.name === name);
+    if(user !== undefined) {
+      throw new UserExist(name);
+    }
   }
 
   getUser(userId) {

@@ -234,6 +234,11 @@ class UNQfy {
     return newPlaylist;
   }
 
+  searchAlbums(albumsName){
+    let albums = this.getAllAlbums();
+    return albums.filter(album => album.name.toLowerCase().includes(albumsName.toLowerCase()));
+  }
+
   getTrackByName(name) {
     const track = this.getAllTracks().find(track => track.name === name);
     if(track === undefined) {

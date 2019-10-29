@@ -44,11 +44,9 @@ class Track {
 
   getLyrics() {
     if(this.lyrics === null) {
-      console.log("entro");
       return this.searchTrackByNameSinceMusixMatch();
     
     }
-    console.log("no entro");
     return this.lyrics;
   }
 

@@ -13,6 +13,7 @@ const NonExistentArtistException = require('./exceptions/nonexistentartistexcept
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
 const IdGenerator = require('./idGenerator');
+const spotifyAPI = require('./spotifyAPI');
 
 
 class UNQfy {
@@ -48,8 +49,8 @@ class UNQfy {
   addAlbum(artistId, albumData) {
   /* Crea un album y lo agrega al artista con id artistId.
     El objeto album creado debe tener (al menos):
-     - una propiedad name (string)
-     - una propiedad year (number)
+      - una propiedad name (string)
+      - una propiedad year (number)
   */
     const artist = this.getArtistById(artistId);
     const newAlbum = new Album(this.idGenerator.generateId(), albumData.name, albumData.year);
@@ -256,7 +257,36 @@ class UNQfy {
   }
 
   populateAlbumsForArtist(artistName) {
-      
+    spotifyAPI.searchArtist(artistName)
+      .then((response) => {
+        return response.artists.items[0].id;
+      })
+      .then((id) => {
+        this.addSpotifyAlbumsById(id, this.getOrCreateArtist(artistName));
+      })
+      .catch((error) => console.log('There was an error', error));
+  }
+
+  addSpotifyAlbumsById(spotifyId, artist) {
+    spotifyAPI.getAlbumsById(spotifyId)
+      .then((albums) => {
+        albums.items.forEach(a => {
+          artist.albums.push(new Album(spotifyAPI, a.name, a.release_date))
+        });
+      })
+      .catch((error) => console.log('There was an error', error));
+  }
+
+  getOrCreateArtist(artistName) {
+    let artist = this.artists.find(a => a.name === artistName);
+    if (artist === undefined) {
+      const data = {
+        name: artistName, 
+        country: '',
+      };
+      artist = this.addArtist(data);
+    };
+    return artist;
   }
 
   save(filename) {

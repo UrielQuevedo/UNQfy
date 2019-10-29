@@ -121,6 +121,10 @@ const _getLyricsByTrackName = (params, unqfy) =>{
   
 };
 
+const _populateAlbumsForArtist = (params, unqfy) => {
+  unqfy.populateAlbumsForArtist(params[1]);
+};
+
 const _help = () => {
   console.log('- addArtist [nombre] [nacionalidad] :  Agrega un artista con su nombre y nacionalidad');
   console.log('- addTrack [albumID] [track Name] [genero1] [genero2] [genero3] ...  : Agrega un track al album ');
@@ -173,6 +177,7 @@ const commands = {
   tracksMostListened: _tracksMostListened,
   getPlaylist: _getPlaylist,
   getLyricsByTrackName : _getLyricsByTrackName,
+  populateAlbumsForArtist : _populateAlbumsForArtist,
   helps: _help,
 };
 

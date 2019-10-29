@@ -1,13 +1,15 @@
 const { Router } = require('express');
+const connection = require('../connection');
 const router = Router();
-const { UNQfy } = require('../unqfy');
-const unqfy = new UNQfy();
+const unqfy = connection.getUNQfy('database');
 
 router.post('/', (req, res) => {
       const newArtist = req.body;
       if(newArtist.name && newArtist.country) {
         try {
-             res.status(201).json(unqfy.addArtist(newArtist));
+            const art = unqfy.addArtist(newArtist)
+            connection.saveUNQfy(unqfy,'database')
+            res.status(201).json(art);
         }
         catch(error) {  
             res.status(409).json({status:409, errorCode:"RESOURCE_ALREADY_EXISTS"});
@@ -34,7 +36,7 @@ router.get('/', (req, res) => {
     if(name) {
       res.status(200).json(unqfy.searchByName(name).artists);
     }
-    else {
+    else { 
       res.status(200).json(unqfy.artists);
     }
 }); 

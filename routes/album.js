@@ -1,11 +1,10 @@
 const { Router } = require('express');
+const connection = require('../connection');
 const router = Router();
-const { UNQfy } = require('../unqfy');
-const unqfy = new UNQfy();
+const unqfy = connection.getUNQfy('database');
 
 router.get('/:id', (req, res) => {
   const id  = req.params.id;
-  console.log(unqfy.getAlbumById(id));
   try {
       const album = unqfy.getAlbumById(id);
       res.status(200).json(album);
@@ -20,14 +19,9 @@ router.post('/', (req, res) => {
   try {
     const album = unqfy.addAlbum(data.artistId, data);
     const artist = unqfy.getArtistById(data.artistId);
-    console.log(album);
-    console.log(artist);
-    if(artist.albums.indexOf(album) < 0){
-      res.status(200).send(album);
-    }
-    else{
-      res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
-    }
+    
+    res.status(200).send(album);
+    
   } catch (error) {
     res.status(404).json({status:404, errorCode:'RELATED_RESOURCE_NOT_FOUND', message: error.message });
   }

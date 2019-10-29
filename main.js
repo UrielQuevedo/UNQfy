@@ -51,7 +51,7 @@ function main() {
   
   commands.execute(params, unqfy);
 
-  setTimeout(function(){saveUNQfy(unqfy,'database');}, 600);
+  setTimeout(function(){saveUNQfy(unqfy,'database');},1000);
 }
 
 main();

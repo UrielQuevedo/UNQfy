@@ -285,8 +285,16 @@ class UNQfy {
         country: '',
       };
       artist = this.addArtist(data);
-    };
+    }
     return artist;
+  }
+
+  getAlbumsForArtist(artistName) {
+    const artist = this.artists.find(a => a.name === artistName);
+    if(artist === undefined) {
+      throw new NonExistentArtistException(artistName);
+    } 
+    return artist.albums;
   }
 
   save(filename) {

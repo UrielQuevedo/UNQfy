@@ -62,7 +62,7 @@ router.get('/:id/tracksHeard', (req, res) => {
   const { id } = req.params;
   try {
     const user = unqfy.getUser(id);
-    res.status(200).json(user.tracksHeard);
+    res.status(200).json(user.getTracksHeards());
   }
   catch(error) {
     res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
@@ -73,15 +73,25 @@ router.get('/:id/tracksHeard', (req, res) => {
 
 router.post('/:id/tracksHeard', (req, res) => {
   const { id } = req.params;
-  const newTrack = req.body;
-  console.log(newTrack);
+  const track = req.body;
   try { 
     const user = unqfy.getUser(id);
-    user.listenTrack(newTrack);
-    res.status(201).json(newTrack);
+    user.listenTrack(track);
+    res.status(201).json(track);
   }
   catch(error) {
-    res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND', message: error.message});
+    res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND', message:error.message});
+  }
+});
+  
+router.get('/:idUser/:idTrack/tracksHeard', (req, res) => {
+  const { idUser , idTrack} = req.params;
+  try { 
+    const user = unqfy.getUser(idUser);
+    res.status(201).json({repeat:user.manyTimesListenTrack(idTrack)});
+  }
+  catch(error) {
+    res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
   }
 });
   

@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
         try {
              res.status(201).json(unqfy.addArtist(newArtist));
         }
-        catch {
+        catch(error) {
             res.status(409).json({status:409, errorCode:"RESOURCE_ALREADY_EXISTS"});
         }
     }

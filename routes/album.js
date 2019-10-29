@@ -39,12 +39,14 @@ router.delete('/:id', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  const albums = unqfy.searchAlbums(req.query.name);
-  res.status(200).send(albums);
+  const name = req.query.name;
+  if(name) {
+    const albums = unqfy.searchAlbums(req.query.name);
+    res.status(200).json(albums);
+  }
+  else {
+    res.status(200).json(unqfy.getAllAlbums());
+  }
 });
-
-// function editYear (req, res) {
-
-// }
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const rp = require('request-promise');
-
-const BASE_URL = 'http://api.musixmatch.com/ws/1.1';
+const { searchTrackByName, lyricsTrackById } = require('./musixmatchAPI');
 
 class Track {
 
@@ -51,7 +50,7 @@ class Track {
   }
 
   searchTrackByNameSinceMusixMatch() { 
-    return rp.get(this.searchTrackByName(this.name))
+    return rp.get(searchTrackByName(this.name))
       .then((response) => {
         const header = response.message.header;
         const body = response.message.body;
@@ -60,32 +59,10 @@ class Track {
         }
         const track = body.track_list[0].track;
         const idTrack = track.track_id;
-        this.lyrics = rp.get(this.lyricsTrackById(idTrack));
+        this.lyrics = rp.get(lyricsTrackById(idTrack));
         return this.lyrics;
       })
       .catch((error) => console.log('There was an error', error));
-  }
-
-  searchTrackByName(trackName) {
-    return {
-      uri: BASE_URL + '/track.search',
-      qs: {
-        apikey: '89e71fc51d656bfe9ba3e79f4c0da45d',
-        q_track: trackName,
-      },
-      json: true
-    };
-  }
-
-  lyricsTrackById(idTrack) {
-    return {
-      uri: BASE_URL + '/track.lyrics.get',
-      qs: {
-        apikey: '89e71fc51d656bfe9ba3e79f4c0da45d',
-        track_id: idTrack,
-      },
-      json: true
-    };
   }
 
   deleteInfo() {

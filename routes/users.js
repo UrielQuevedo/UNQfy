@@ -86,7 +86,7 @@ router.post('/:id/tracksHeard', (req, res) => {
     const user = unqfy.getUser(id);
     const track = unqfy.getTrackByName(newTrack.name);
     user.listenTrack(track);
-    
+    connection.saveUNQfy(unqfy,'database');
     res.status(201).json(track);
   }
   catch(error) {
@@ -98,7 +98,7 @@ router.get('/:idUser/:idTrack/tracksHeard', (req, res) => {
   const { idUser , idTrack} = req.params;
   try { 
     const user = unqfy.getUser(idUser);
-    res.status(201).json({repeat:user.manyTimesListenTrack(idTrack)});
+    res.status(200).json({repeat:user.manyTimesListenTrack(idTrack)});
   }
   catch(error) {
     res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});

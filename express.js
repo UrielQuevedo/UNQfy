@@ -13,8 +13,8 @@ app.use(express.json());
 app.use('/api/artists',require('./routes/artists'));
 app.use('/api/tracks',require('./routes/tracks'));
 app.use('/api/users',require('./routes/users'));
-app.use('/invalidRoute',require('./routes/invalidRoute'));
 app.use('/api/albums', require('./routes/album.js'));
+app.use('/invalidRoute',require('./routes/invalidRoute'));
 app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {
     res.status(400).json({status:400, errorCode:'BAD_REQUEST'});

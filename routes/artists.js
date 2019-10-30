@@ -7,8 +7,8 @@ router.post('/', (req, res) => {
       const newArtist = req.body;
       if(newArtist.name && newArtist.country) {
         try {
-            const art = unqfy.addArtist(newArtist)
-            connection.saveUNQfy(unqfy,'database')
+            const art = unqfy.addArtist(newArtist);
+            connection.saveUNQfy(unqfy,'database');
             res.status(201).json(art);
         }
         catch(error) {  
@@ -49,6 +49,7 @@ router.put('/:id', (req, res) => {
         const artist = unqfy.getArtistById(id);
         artist.name = newName;
         artist.country = newCountry;
+        connection.saveUNQfy(unqfy,'database');
         res.status(200).json(artist);
      }
     catch {
@@ -61,6 +62,7 @@ router.delete('/:id', (req, res) => {
     try {
         const artist = unqfy.getArtistById(id);
         unqfy.removeArtist(artist.id);
+        connection.saveUNQfy(unqfy,'database');
         res.status(204).json({status:204});
     }
     catch {

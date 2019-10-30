@@ -8,9 +8,12 @@ router.post('/', (req, res) => {
   const newUser = req.body;
   if(newUser.name) {
     try {
-      res.status(201).json(unqfy.addUser(newUser.name));
+      const user = unqfy.addUser(newUser.name);
+      connection.saveUNQfy(unqfy,'database');
+      res.status(201).json(user);
     }
     catch(error) {
+      console.log(error.message);
       res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
     }
   }
@@ -40,6 +43,7 @@ router.put('/:id', (req, res) => {
   try {
     const user = unqfy.getUser(id);
     user.name = newName;
+    connection.saveUNQfy(unqfy,'database');
     res.status(200).json(user);
   }
   catch(error) {
@@ -51,6 +55,7 @@ router.delete('/:id', (req, res) => {
   const { id } = req.params;
   try {
     unqfy.removeUser(id);
+    connection.saveUNQfy(unqfy,'database');
     res.status(204).json({status:204});    
   }
   catch(error) {
@@ -58,13 +63,16 @@ router.delete('/:id', (req, res) => {
   }
 });
 
+//////////////////////////////////////// user tracks ////////////////////////////////////////
+
 router.get('/:id/tracksHeard', (req, res) => {
   const { id } = req.params;
   try {
     const user = unqfy.getUser(id);
-    res.status(200).json(user.getTracksHeards());
+    res.status(200).json(user.getTracksHeard());
   }
   catch(error) {
+    console.log(error.message)
     res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
   }
 }); 
@@ -73,10 +81,12 @@ router.get('/:id/tracksHeard', (req, res) => {
 
 router.post('/:id/tracksHeard', (req, res) => {
   const { id } = req.params;
-  const track = req.body;
+  const newTrack = req.body;
   try { 
     const user = unqfy.getUser(id);
+    const track = unqfy.getTrackByName(newTrack.name);
     user.listenTrack(track);
+    
     res.status(201).json(track);
   }
   catch(error) {

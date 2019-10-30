@@ -7,7 +7,7 @@ router.get('/:id', (req, res) => {
   const id  = req.params.id;
   try {
       const album = unqfy.getAlbumById(id);
-      res.status(200).json(album);
+      res.status(201).json(album);
   }
   catch {
       res.status(404).json({status:404, errorCode:"RESOURCE_NOT_FOUND"});
@@ -17,10 +17,9 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const data = req.body;
   try {
-    const album = unqfy.addAlbum(data.artistId, data);
-    const artist = unqfy.getArtistById(data.artistId);
-    
-    res.status(200).send(album);
+    const album = unqfy.addAlbum(data.artistId, {name:data.name, year:data.year});
+    connection.saveUNQfy(unqfy,'database');
+    res.status(201).json(album);
     
   } catch (error) {
     res.status(404).json({status:404, errorCode:'RELATED_RESOURCE_NOT_FOUND', message: error.message });

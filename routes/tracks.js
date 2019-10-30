@@ -3,6 +3,17 @@ const connection = require('../connection');
 const router = Router();
 const unqfy = connection.getUNQfy('database');
 
+router.post('/', (req, res) => {
+  const data = req.body;
+  try {
+    const track = unqfy.addTrack(data.albumId,{name:data.name, duration:data.duration, genres:data.genres});
+    connection.saveUNQfy(unqfy,'database');
+    res.status(201).json(track);
+  }
+  catch(error) {
+    res.status(404).json({status:404, errorCode:'RELATED_RESOURCE_NOT_FOUND', message: error.message });
+  }
+});
 
 router.get('/:id/lyrics', (req, res) => {
   const { id } = req.params;

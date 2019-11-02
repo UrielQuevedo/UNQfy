@@ -35,17 +35,17 @@ class Album {
 
   getTrack(trackId) {
     return this.tracks.find( track => 
-      track.id === parseInt(trackId)
+      track.id === trackId
     );
   }
 
   ifContainsTrack(trackId) {
-    return this.tracks.some( track => track.id === parseInt(trackId));
+    return this.tracks.some( track => track.id === trackId);
   } 
 
   removeTrack(trackId) {
     this.tracks = this.tracks.filter( track => 
-      track.id !== parseInt(trackId)
+      track.id !== trackId
     );
   }
 

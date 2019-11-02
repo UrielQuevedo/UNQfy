@@ -36,7 +36,7 @@ class Artist {
 
   removeAlbum(albumId) {
     this.albums = this.albums.filter( album => 
-      album.id !== parseInt(albumId)    
+      album.id !== albumId    
     );
   }
 
@@ -49,7 +49,7 @@ class Artist {
   }
 
   ifContainsAlbum(albumId) {
-    return this.albums.some( album => album.id === parseInt(albumId));
+    return this.albums.some( album => album.id === albumId);
   } 
 
   isName(name) {

@@ -25,7 +25,7 @@ class User {
   }  
 
   manyTimesListenTrack(trackId) {
-    return this.tracksHeard.reduce((total,track) => (track.id === parseInt(trackId) ? total+1 : total), 0);
+    return this.tracksHeard.reduce((total,track) => (track.id === trackId ? total+1 : total), 0);
   }
 }
   

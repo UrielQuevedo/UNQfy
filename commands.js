@@ -4,40 +4,40 @@ const _addArtist = (params, unqfy) => {
 };
 
 const _addAlbum = (params, unqfy) => {
-  const album = unqfy.addAlbum(params[1], {name: params[2], year: params[3]});
+  const album = unqfy.addAlbum(parseInt(params[1]), {name: params[2], year: params[3]});
   console.log(album);
 };
 
 const _addTrack = (params, unqfy) => {
-  const track = unqfy.addTrack(params[1], {name: params[2], duration: params[3], genres: params.slice(4)});
+  const track = unqfy.addTrack(parseInt(params[1]), {name: params[2], duration: params[3], genres: params.slice(4)});
   console.log(track);
 };
 
 const _removeTrack = (params, unqfy) =>{
-  unqfy.removeTrack(params[1]);
+  unqfy.removeTrack(parseInt(params[1]));
 };
 
 const _removeAlbum = (params, unqfy) =>{
-  unqfy.removeAlbum(params[1]);
+  unqfy.removeAlbum(parseInt(params[1]));
 };
 
 const _removeArtist = (params, unqfy) =>{
-  unqfy.removeArtist(params[1]);
+  unqfy.removeArtist(parseInt(params[1]));
   console.log(unqfy.artists);
 };
 
 const _getArtist = (params, unqfy) => {
-  const artist = unqfy.getArtistById(params[1]);
+  const artist = unqfy.getArtistById(parseInt(params[1]));
   console.log(artist);
 };
 
 const _getAlbum = (params, unqfy) => {
-  const album = unqfy.getAlbumById(params[1]);
+  const album = unqfy.getAlbumById(parseInt(params[1]));
   console.log(album);
 };
 
 const _getTrack = (params, unqfy) => {
-  const track = unqfy.getTrackById(params[1]);
+  const track = unqfy.getTrackById(parseInt(params[1]));
   console.log(track);
 };
 
@@ -47,17 +47,17 @@ const _allArtists = (params, unqfy) => {
 };
 
 const _allAlbumsByArtist = (params, unqfy) => {
-  const albumsByArtist = unqfy.getAlbumsByArtist(params[1]);
+  const albumsByArtist = unqfy.getAlbumsByArtist(parseInt(params[1]));
   console.log(albumsByArtist);
 };
 
 const _allTracksByAlbum = (params, unqfy) => {
-  const tracksByAlbum = unqfy.getTracksByAlbum(params[1]);
+  const tracksByAlbum = unqfy.getTracksByAlbum(parseInt(params[1]));
   console.log(tracksByAlbum);
 };
 
 const _tracksMatchingArtist = (params, unqfy) => {
-  const artist = unqfy.getArtistById(params[1]);
+  const artist = unqfy.getArtistById(parseInt(params[1]));
   const tracks = unqfy.getTracksMatchingArtist(artist);
   console.log(tracks);
 };
@@ -68,7 +68,7 @@ const _tracksMatchingGenres = (params, unqfy) => {
 };
 
 const _createPlaylist = (params, unqfy) => {
-  const playlist = unqfy.createPlaylist(params[1],params[2],params[3]);
+  const playlist = unqfy.createPlaylist(params[1],params[2],parseInt(params[3]));
   console.log(playlist);
 };
 
@@ -78,36 +78,36 @@ const _addUser = (params, unqfy) => {
 };
 
 const _getUser = (params, unqfy) => {
-  const user = unqfy.getUser(params[1]);
+  const user = unqfy.getUser(parseInt(params[1]));
   console.log(user);
 };
 
 const _hear = (params, unqfy) => {
-  const user = unqfy.getUser(params[1]);
+  const user = unqfy.getUser(parseInt(params[1]));
   const track = unqfy.getTrackById(params[2]);
   user.listenTrack(track);
 };
 
 const _tracksHeard = (params, unqfy) => {
-  const user = unqfy.getUser(params[1]);
+  const user = unqfy.getUser(parseInt(params[1]));
   const tracks = user.getTracksHeard();
   console.log(tracks);
 };
 
 const _timesHeard = (params, unqfy) => {
-  const user = unqfy.getUser(params[1]);
+  const user = unqfy.getUser(parseInt(params[1]));
   const times = user.manyTimesListenTrack(params[2]);
   console.log(times);
 };
 
 const _tracksMostListened = (params, unqfy) => {
-  const artist = unqfy.getArtistById(params[1]);
+  const artist = unqfy.getArtistById(parseInt(params[1]));
   const tracks = artist.threeMostListenedTracks();
   console.log(tracks);
 };
 
 const _getPlaylist = (params, unqfy) => {
-  const playlist = unqfy.getPlaylistById(params[1]);
+  const playlist = unqfy.getPlaylistById(parseInt(params[1]));
   console.log(playlist);
 };
 

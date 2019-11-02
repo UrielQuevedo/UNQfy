@@ -96,7 +96,7 @@ class UNQfy {
   }
 
   getUser(userId) {
-    const user = this.users.find( user => user.id === parseInt(userId));
+    const user = this.users.find( user => user.id === (userId));
     if(user === undefined) {
       throw UserNotFound(user.name);
     }
@@ -105,7 +105,7 @@ class UNQfy {
 
   searchElementById(list, id) {
     return list.find(elem => 
-      elem.id === parseInt(id)
+      elem.id === id
     );
   }
 
@@ -174,7 +174,7 @@ class UNQfy {
   removeArtist(artistId) {
     const artistToDelete = this.getArtistById(artistId);
     this.artists = this.artists.filter( artist =>
-      artist.id !== parseInt(artistId)
+      artist.id !== (artistId)
     );
     artistToDelete.deleteInfo();
   }

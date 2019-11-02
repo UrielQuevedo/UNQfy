@@ -11,6 +11,7 @@ const UserNotFound = require('./exceptions/userNotFound');
 const TrackNotFound = require('./exceptions/trackNotFound');
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
+const NonExistentArtistAlbumException = require('./exceptions/nonExistentArtistAlbumException');
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
 const IdGenerator = require('./idGenerator');
 const spotifyAPI = require('./spotifyAPI');
@@ -52,7 +53,10 @@ class UNQfy {
       - una propiedad name (string)
       - una propiedad year (number)
   */
-    const artist = this.getArtistById(artistId);
+    const artist = this.searchElementById(this.artists, artistId);
+    if(artist === undefined) {
+      throw new NonExistentArtistAlbumException(artistId);
+    }
     const newAlbum = new Album(this.idGenerator.generateId(), albumData.name, albumData.year);
     artist.addAlbum(newAlbum);
     return newAlbum;

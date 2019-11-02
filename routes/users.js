@@ -2,23 +2,18 @@ const { Router } = require('express');
 const connection = require('../connection');
 const router = Router();
 
-router.post('/', (connection.executeFunction((unqfy, req, res) => {
+router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const newUser = req.body;
-  if(newUser.name) {
-    try {
-      const user = unqfy.addUser(newUser.name);
-      res.status(201).json(user);
-    }
-    catch(error) {
-      res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
-    }
+  try {
+    const user = unqfy.addUser(newUser.name);
+    res.status(201).json(user);
   }
-  else {
-    res.status(400).json({status:400, errorCode:'BAD_REQUEST'});
-  }     
+  catch(error) {
+    res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
+  }
 })));
 
-router.get('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   try {
     const user = unqfy.getUser(id);
@@ -29,11 +24,11 @@ router.get('/:id', (connection.executeFunction((unqfy, req, res) => {
   }
 }))); 
 
-router.get('/', (connection.executeFunction((unqfy, req, res) => {
+router.get('/', (connection.executeFunction([],(unqfy, req, res) => {
   res.status(200).json(unqfy.users);
 }))); 
 
-router.put('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.put('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   const newName = req.body.name;
   try {
@@ -46,7 +41,7 @@ router.put('/:id', (connection.executeFunction((unqfy, req, res) => {
   }
 })));
 
-router.delete('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   try {
     unqfy.removeUser(id);
@@ -59,7 +54,7 @@ router.delete('/:id', (connection.executeFunction((unqfy, req, res) => {
 
 //////////////////////////////////////// user tracks ////////////////////////////////////////
 
-router.get('/:id/tracksHeard', (connection.executeFunction((unqfy, req, res) => {
+router.get('/:id/tracksHeard', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   try {
     const user = unqfy.getUser(id);
@@ -72,7 +67,7 @@ router.get('/:id/tracksHeard', (connection.executeFunction((unqfy, req, res) => 
 
 // se asume que el track ya esta creado en UNQfy
 
-router.post('/:id/tracksHeard', (connection.executeFunction((unqfy, req, res) => {
+router.post('/:id/tracksHeard', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   const newTrack = req.body;
   try { 
@@ -86,7 +81,7 @@ router.post('/:id/tracksHeard', (connection.executeFunction((unqfy, req, res) =>
   }
 })));
   
-router.get('/:idUser/:idTrack/tracksHeard', (connection.executeFunction((unqfy, req, res) => {
+router.get('/:idUser/:idTrack/tracksHeard', (connection.executeFunction([],(unqfy, req, res) => {
   const { idUser , idTrack} = req.params;
   try { 
     const user = unqfy.getUser(idUser);

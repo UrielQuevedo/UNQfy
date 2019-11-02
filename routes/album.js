@@ -2,7 +2,7 @@ const { Router } = require('express');
 const connection = require('../connection');
 const router = Router();
 
-router.get('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const id  = req.params.id;
   try {
     const album = unqfy.getAlbumById(id);
@@ -13,21 +13,17 @@ router.get('/:id', (connection.executeFunction((unqfy, req, res) => {
   }
 }))); 
 
-router.post('/', (connection.executeFunction((unqfy, req, res) => {
+router.post('/', (connection.executeFunction(['artistId','name','year'],(unqfy, req, res) => {
   const dataAlbum = req.body;
-  if(dataAlbum.artistId !== undefined && dataAlbum.name !== undefined && dataAlbum.year !== undefined) {
-    try {
-      const album = unqfy.addAlbum(dataAlbum.artistId, {name:dataAlbum.name, year:dataAlbum.year});
-      res.status(201).json(album);
-    } catch (error) {
-      catchError(error, res);
-    }
-  } else {
-    res.status(400).json({status:400, errorCode:'BAD_REQUEST'});
+  try {
+    const album = unqfy.addAlbum(dataAlbum.artistId, {name:dataAlbum.name, year:dataAlbum.year});
+    res.status(201).json(album);
+  } catch (error) {
+    catchError(error, res);
   }
 })));
 
-router.delete('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   try {
     const album = unqfy.getAlbumById(id);
@@ -38,7 +34,7 @@ router.delete('/:id', (connection.executeFunction((unqfy, req, res) => {
   }
 })));
 
-router.get('/', (connection.executeFunction((unqfy, req, res) => {
+router.get('/', (connection.executeFunction([],(unqfy, req, res) => {
   const name = req.query.name;
   if(name !== undefined) {
     const albums = unqfy.searchByName(name).albums;
@@ -49,21 +45,17 @@ router.get('/', (connection.executeFunction((unqfy, req, res) => {
   }
 })));
 
-router.patch('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.patch('/:id', (connection.executeFunction(['year'],(unqfy, req, res) => {
   const { id } = req.params;
-  const newYear = req.body.year;
-  if (newYear !== undefined) {
-    try {
-      const album = unqfy.getAlbumById(id);
-      album.year = newYear;
-      res.status(200).json(album);
-    }
-    catch(error) {
-      catchError(error, res);
-    }
-  } else {
-    res.status(400).json({status:400, errorCode:'BAD_REQUEST'});
+  try {
+    const album = unqfy.getAlbumById(id);
+    album.year = req.body.year;
+    res.status(200).json(album);
   }
+  catch(error) {
+    catchError(error, res);
+  }
+  
 })));
 
 const _theAlbumWithThatNameAlreadyExistException = (res) => {

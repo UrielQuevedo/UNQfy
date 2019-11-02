@@ -2,7 +2,7 @@ const { Router } = require('express');
 const connection = require('../connection');
 const router = Router();
 
-router.post('/', (connection.executeFunction((unqfy, req, res) => {
+router.post('/', (connection.executeFunction([],(unqfy, req, res) => {
   const data = req.body;
   try {
     const track = unqfy.addTrack(data.albumId,{name:data.name, duration:data.duration, genres:data.genres});
@@ -13,7 +13,7 @@ router.post('/', (connection.executeFunction((unqfy, req, res) => {
   }
 })));
 
-router.get('/:id/lyrics', (connection.executeFunction((unqfy, req, res) => {
+router.get('/:id/lyrics', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   const track = unqfy.getTrackById(id);
   track.getLyrics()

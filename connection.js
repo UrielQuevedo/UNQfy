@@ -13,11 +13,19 @@ function saveUNQfy(unqfy, filename = 'data.json') {
   unqfy.save(filename);
 }
 
-function executeFunction(func) {
+function isNotUndefined(value) {
+  return value !== undefined;
+}
+
+function executeFunction(params,func) {
   return function (req, res) {
-    const unqfy = getUNQfy('database');
-    func(unqfy, req, res);
-    saveUNQfy(unqfy,'database');
+    if (params.every(p => isNotUndefined(req.query[p]) || isNotUndefined(req.body[p]))) {
+      const unqfy = getUNQfy('database');
+      func(unqfy, req, res);
+      saveUNQfy(unqfy,'database');
+    } else {
+      res.status(400).json({status:400, errorCode:'BAD_REQUEST'});
+    }
   };
 }
 

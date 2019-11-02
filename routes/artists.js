@@ -2,23 +2,18 @@ const { Router } = require('express');
 const connection = require('../connection');
 const router = Router();
 
-router.post('/', (connection.executeFunction((unqfy, req, res) => {
+router.post('/', (connection.executeFunction(['name','country'],(unqfy, req, res) => {
   const newArtist = req.body;
-  if(newArtist.name && newArtist.country) {
-    try {
-      const art = unqfy.addArtist(newArtist);
-      res.status(201).json(art);
-    }
-    catch(error) {  
-      res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
-    }
+  try {
+    const art = unqfy.addArtist(newArtist);
+    res.status(201).json(art);
   }
-  else {
-    res.status(400).json({status:400, errorCode:'BAD_REQUEST'});
-  } 
+  catch(error) {  
+    res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
+  }
 })));
 
-router.get('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   try {
     const artist = unqfy.getArtistById(id);
@@ -29,7 +24,7 @@ router.get('/:id', (connection.executeFunction((unqfy, req, res) => {
   }
 }))); 
 
-router.get('/', (connection.executeFunction((unqfy, req, res) => {
+router.get('/', (connection.executeFunction([],(unqfy, req, res) => {
   const name = req.query.name;
   if(name !== undefined) {
     const artists = unqfy.searchByName(name).artists;
@@ -40,7 +35,7 @@ router.get('/', (connection.executeFunction((unqfy, req, res) => {
   }
 }))); 
 
-router.put('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.put('/:id', (connection.executeFunction(['name','country'],(unqfy, req, res) => {
   const { id } = req.params;
   const newName = req.body.name;
   const newCountry = req.body.country;
@@ -55,7 +50,7 @@ router.put('/:id', (connection.executeFunction((unqfy, req, res) => {
   }
 })));
 
-router.delete('/:id', (connection.executeFunction((unqfy, req, res) => {
+router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   try {
     const artist = unqfy.getArtistById(id);

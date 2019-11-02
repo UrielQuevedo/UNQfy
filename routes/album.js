@@ -1,32 +1,42 @@
 const { Router } = require('express');
 const connection = require('../connection');
 const router = Router();
-const unqfy = connection.getUNQfy('database');
 
-router.get('/:id', (req, res) => {
+function executeFunction(func) {
+  return function (req, res) {
+      const unqfy = connection.getUNQfy('database');
+      func(unqfy, req, res);
+      connection.saveUNQfy(unqfy,'database');
+  };
+}
+
+router.get('/:id', (executeFunction((unqfy, req, res) => {
   const id  = req.params.id;
+  console.log(unqfy);
   try {
-      const album = unqfy.getAlbumById(id);
-      res.status(201).json(album);
+    const album = unqfy.getAlbumById(id);
+    res.status(200).json(album);
   }
   catch {
-      res.status(404).json({status:404, errorCode:"RESOURCE_NOT_FOUND"});
+    res.status(404).json({status:404, errorCode:"RESOURCE_NOT_FOUND" });
   }
-}); 
+}))); 
 
-router.post('/', (req, res) => {
-  const data = req.body;
-  try {
-    const album = unqfy.addAlbum(data.artistId, {name:data.name, year:data.year});
-    connection.saveUNQfy(unqfy,'database');
-    res.status(201).json(album);
-    
-  } catch (error) {
-    res.status(404).json({status:404, errorCode:'RELATED_RESOURCE_NOT_FOUND', message: error.message });
+router.post('/', (executeFunction((unqfy, req, res) => {
+  const dataAlbum = req.body;
+  if(dataAlbum.artistId !== undefined && dataAlbum.name !== undefined && dataAlbum.year !== undefined) {
+    try {
+      const album = unqfy.addAlbum(dataAlbum.artistId, {name:dataAlbum.name, year:dataAlbum.year});
+      res.status(201).json(album);
+    } catch (error) {
+      catchError(error, res);
+    }
+  } else {
+    res.status(400).json({status:400, errorCode:"BAD_REQUEST"});
   }
-})
+})));
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (executeFunction((unqfy, req, res) => {
   const { id } = req.params;
   try {
     const album = unqfy.getAlbumById(id);
@@ -35,17 +45,57 @@ router.delete('/:id', (req, res) => {
   } catch (error) {
     res.status(404).json({status:404, errorCode:"RESOURCE_NOT_FOUND"});
   }
-});
+})));
 
-router.get('/', (req, res) => {
+router.get('/', (executeFunction((unqfy, req, res) => {
   const name = req.query.name;
-  if(name) {
-    const albums = unqfy.searchAlbums(req.query.name);
+  console.log(unqfy);
+  if(name !== undefined) {
+    const albums = unqfy.searchByName(name).albums;
     res.status(200).json(albums);
   }
   else {
     res.status(200).json(unqfy.getAllAlbums());
   }
-});
+})));
+
+router.patch('/:id', (executeFunction((unqfy, req, res) => {
+  const { id } = req.params;
+  const newYear = req.body.year;
+  if (newYear !== undefined) {
+    try {
+      const album = unqfy.getAlbumById(id);
+      album.year = newYear;
+      res.status(200).json(album);
+    }
+    catch(error) {
+      catchError(error, res);
+    }
+  } else {
+    res.status(400).json({status:400, errorCode:"BAD_REQUEST"});
+  }
+})));
+
+const _theAlbumWithThatNameAlreadyExistException = (res) => {
+  res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
+}
+
+const _nonExistentArtistException = (res) => {
+  res.status(404).json({status:404, errorCode:"RELATED_RESOURCE_NOT_FOUND"});
+}
+
+const _nonExistentAlbumException = (res) => {
+  res.status(404).json({status:404, errorCode:"RESOURCE_NOT_FOUND"});
+}
+
+function catchError(error, res) {
+  errors[error.name](res);
+}
+
+const errors = {
+  theAlbumWithThatNameAlreadyExistException: _theAlbumWithThatNameAlreadyExistException,
+  nonExistentArtistException: _nonExistentArtistException,
+  nonExistentAlbumException: _nonExistentAlbumException,
+}
 
 module.exports = router;

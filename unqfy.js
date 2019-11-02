@@ -112,7 +112,7 @@ class UNQfy {
     }
   }
 
-  getArtistById(id) { 
+  getArtistById(id) {
     const element = this.searchElementById(this.artists, id);
     if(element === undefined) {
       throw new NonExistentArtistException(id);
@@ -126,6 +126,10 @@ class UNQfy {
       throw new NonExistentAlbumException(id);
     }
     return element;
+  }
+
+  getAllArtist() {
+    return this.artists;
   }
 
   getAllAlbums() {

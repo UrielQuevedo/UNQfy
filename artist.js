@@ -1,3 +1,5 @@
+const TheAlbumWithThatNameAlreadyExistException = require('./exceptions/theAlbumWithThatNameAlreadyExistException')
+
 class Artist {
 
   constructor(id,name,country) {
@@ -24,7 +26,12 @@ class Artist {
   }
 
   addAlbum(album) {
-    this.albums.push(album);
+    const repeatedAlbum = this.albums.find(a => a.name === album.name)
+    if (repeatedAlbum) {
+      throw new TheAlbumWithThatNameAlreadyExistException(album.name);
+    } else {
+      this.albums.push(album);
+    }
   }
 
   removeAlbum(albumId) {

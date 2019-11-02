@@ -77,4 +77,6 @@ const errors = {
 
 module.exports = {
   executeFunction,
+  saveUNQfy,
+  getUNQfy,
 };

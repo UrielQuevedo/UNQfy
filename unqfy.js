@@ -284,7 +284,7 @@ class UNQfy {
     spotifyAPI.getAlbumsById(spotifyId)
       .then((albums) => {
         albums.items.forEach(a => {
-          artist.albums.push(new Album(spotifyAPI, a.name, a.release_date))
+          artist.albums.push(new Album(a.id, a.name, a.release_date))
         });
       })
       .catch((error) => console.log('There was an error', error));

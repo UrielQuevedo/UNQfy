@@ -33,7 +33,6 @@ router.put('/:id', (connection.executeFunction(['name','country'],(unqfy, req, r
   artist.name = newName;
   artist.country = newCountry;
   res.status(200).json(artist);
-
 })));
 
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
@@ -41,7 +40,6 @@ router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const artist = unqfy.getArtistById(id);
   unqfy.removeArtist(artist.id);
   res.status(204).json({status:204});
-
 })));
 
 module.exports = router;

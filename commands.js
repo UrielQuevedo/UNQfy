@@ -191,6 +191,13 @@ const commands = {
 function execute(params, unqfy){
   const posibleComando = params[0];
   (posibleComando in commands) ? commands[posibleComando](params, unqfy) : console.log('No existe el comando dado');
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(
+      () =>  resolve(),
+      1000
+    );
+  });
+  return promise;
 }
 
 

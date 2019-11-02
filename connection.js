@@ -13,7 +13,14 @@ function saveUNQfy(unqfy, filename = 'data.json') {
   unqfy.save(filename);
 }
 
+function executeFunction(func) {
+  return function (req, res) {
+    const unqfy = getUNQfy('database');
+    func(unqfy, req, res);
+    saveUNQfy(unqfy,'database');
+  };
+}
+
 module.exports = {
-  getUNQfy,
-  saveUNQfy,
+  executeFunction,
 };

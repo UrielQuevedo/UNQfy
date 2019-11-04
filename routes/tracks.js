@@ -15,7 +15,7 @@ router.post('/', (connection.executeFunction(['albumId','name','duration','genre
 
 router.get('/:id/lyrics', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
-  const track = unqfy.getTrackById(id);
+  const track = unqfy.getTrackById(parseInt(id));
   track.getLyrics()
     .then((response) => 
     {
@@ -27,6 +27,6 @@ router.get('/:id/lyrics', (connection.executeFunction([],(unqfy, req, res) => {
       const lyrics = body.lyrics.lyrics_body;
       res.status(200).json({ name: track.name, lyrics: lyrics});
     });
-})));  
+})));   
 
 module.exports = router;

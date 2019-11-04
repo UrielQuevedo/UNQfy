@@ -80,7 +80,7 @@ class Track {
   listened() {
     this.heardTimes++;
   }
-   
+
 }
 
 module.exports = Track;

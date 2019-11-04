@@ -148,11 +148,14 @@ class UNQfy {
 
   getTrackById(id) {
     const albums = this.getAllAlbums();
-    return albums.find(album => 
+    const album = albums.find(album => 
       album.ifContainsTrack(id)
-    ).getTrack(id);
+    );
+    if (album === undefined) {
+      throw new TrackNotFoundId(id);
+    }
+    return album.getTrack(id);
   }
-
 
   removeTrack(trackId) {
     const album = this.getAllAlbums().find(album =>album.ifContainsTrack(trackId));

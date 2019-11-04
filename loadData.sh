@@ -47,7 +47,7 @@ node main.js addAlbum 4 Album2 2013
 
 node main.js addAlbum 4 Album3 2010
 
-node main.js addTrack 8 Track1 4 Rock Indie
+node main.js addTrack 8 "Somebody That I Used to Know (Gotye feat. Kimbra)" 4 Rock Indie
 
 node main.js addTrack 8 Track2 3 Rock Country
 

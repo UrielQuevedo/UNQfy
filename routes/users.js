@@ -53,7 +53,7 @@ router.post('/:id/tracksHeard', (connection.executeFunction(['name'],(unqfy, req
 router.get('/:idUser/:idTrack/tracksHeard', (connection.executeFunction([],(unqfy, req, res) => {
   const { idUser , idTrack} = req.params;
   const user = unqfy.getUser(parseInt(idUser));
-  res.status(200).json({repeat:user.manyTimesListenTrack(idTrack)});
+  res.status(200).json({repeat:user.manyTimesListenTrack(parseInt(idTrack))});
 })));
   
 module.exports = router;

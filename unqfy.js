@@ -8,7 +8,9 @@ const Playlist = require('./playlist');
 const User = require('./user');
 const UserExist = require('./exceptions/userExist');
 const UserNotFound = require('./exceptions/userNotFound');
+const PlaylistNotFound = require('./exceptions/playlistNotFound');
 const TrackNotFound = require('./exceptions/trackNotFound');
+const TrackNotFoundId = require('./exceptions/trackNotFoundId')
 const NonExistentArtistException = require('./exceptions/nonexistentartistexception');
 const NonExistentAlbumException = require('./exceptions/nonexistentalbumexception');
 const NonExistentArtistAlbumException = require('./exceptions/nonExistentArtistAlbumException');
@@ -105,7 +107,7 @@ class UNQfy {
 
   searchElementById(list, id) {
     return list.find(elem => 
-      elem.id === parseInt(id)
+      elem.id === id
     );
   }
 
@@ -117,9 +119,7 @@ class UNQfy {
   }
 
   getArtistById(id) {
-    console.log(id);
     const element = this.searchElementById(this.artists, id);
-    console.log(this.artists);
     if(element === undefined) {
       throw new NonExistentArtistException(id);
     } 
@@ -185,7 +185,13 @@ class UNQfy {
 
   getTracksByAlbum(albumId) { return this.getAlbumById(albumId).tracks; }
 
-  getPlaylistById(id) { return this.searchElementById(this.playlists, id); }
+  getPlaylistById(id) { 
+    const playlist = this.searchElementById(this.playlists, id);
+    if (playlist === undefined) {
+      throw new PlaylistNotFound(id);
+    }
+    return playlist; 
+  }
 
   getListByName(list, name) { return list.filter( elem => elem.name.toLowerCase().includes(name)); }
 
@@ -245,7 +251,7 @@ class UNQfy {
   }
 
   searchAlbums(albumsName){
-    let albums = this.getAllAlbums();
+    const albums = this.getAllAlbums();
     return albums.filter(album => album.name.toLowerCase().includes(albumsName.toLowerCase()));
   }
 
@@ -314,6 +320,21 @@ class UNQfy {
 
   removePlayList(playlistId) {
     this.playlists = this.playlists.filter(p => p.id !== playlistId);
+  }
+
+  createPlaylistByTracks(name, tracksId) {
+    const tracks = tracksId.map( id => {
+      const track = this.getTrackById(id);
+      if (track === undefined) {
+        throw new TrackNotFoundId(id);
+      }
+      return track;
+    });
+    const playlist = new Playlist(this.idGenerator.generateId(), name, [], 0);
+    playlist.tracks = tracks;
+    playlist.maxDuration = tracks.reduce((t, x) => t.duration + x, 0);
+    tracks.forEach(t => t.suscribeToPlayList(playlist));
+    return playlist;
   }
 
   save(filename) {

@@ -61,6 +61,14 @@ const _userNotFound = (res) => {
   res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
 };
 
+const _playlistNotFound = (res) => {
+  res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
+};
+
+const _trackNotFoundId = (res) => {
+  res.status(404).json({status:404, errorCode:'RELATED_RESOURCE_NOT_FOUND'});
+};
+
 function catchError(error, res) {
   errors[error.name](res);
 }
@@ -73,6 +81,8 @@ const errors = {
   nonExistentArtistAlbumException: _nonExistentArtistAlbumException,
   userExist: _userExist,
   userNotFound: _userNotFound,
+  playlistNotFound: _playlistNotFound,
+  trackNotFoundId: _trackNotFoundId,
 };
 
 module.exports = {

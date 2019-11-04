@@ -8,10 +8,21 @@ router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   res.status(200).json(playlist);
 }))); 
 
-//FALTA
 router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const newPlaylist = req.body;
-  res.status(201).json();
+  const name = newPlaylist.name;
+  const genres = newPlaylist.genres;
+  const maxDuration = newPlaylist.maxDuration;
+  const tracksId = newPlaylist;
+  if(genres !== undefined && maxDuration !== undefined ) {
+    const playlist = unqfy.createPlaylist(name, genres, maxDuration);
+    res.status(201).json(playlist);
+  } else if(tracksId !== undefined) {
+    const playlist = unqfy.createPlaylistByTracks(name, tracksId);
+    res.status(201).json(playlist);
+  } else {
+    res.status(400).json({status:400, errorCode:'BAD_REQUEST'});
+  }
 })));
 
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
@@ -45,11 +56,11 @@ const _byName = (e, value) => {
 };
 
 const _byDurationLT = (e, value) => {
-  return e.duration <= value;
+  return e.maxDuration <= value;
 };
 
 const _byDurationGT = (e, value) => {
-  return e.duration >= value;
+  return e.maxDuration >= value;
 };
 
 const functionsByFilter = {

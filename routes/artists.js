@@ -11,7 +11,6 @@ router.post('/', (connection.executeFunction(['name','country'],(unqfy, req, res
 router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   const artist = unqfy.getArtistById(parseInt(id));
-  console.log(artist);
   res.status(200).json(artist);
 }))); 
 

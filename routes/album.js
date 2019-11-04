@@ -23,6 +23,7 @@ router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
 
 router.get('/', (connection.executeFunction([],(unqfy, req, res) => {
   const name = req.query.name;
+  console.log(req.query);
   if(name !== undefined) {
     const albums = unqfy.searchByName(name).albums;
     res.status(200).json(albums);

@@ -46,20 +46,20 @@ const _nonExistentAlbumException = (res) => {
 };
 
 const _theArtistWithThatNameAlreadyExistsExceptions = (res) => {
-  res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'})
-}
+  res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
+};
 
 const _nonExistentArtistAlbumException = (res) => {
   res.status(404).json({status:404, errorCode:'RELATED_RESOURCE_NOT_FOUND'});
-}
+};
 
 const _userExist = (res) => {
   res.status(409).json({status:409, errorCode:'RESOURCE_ALREADY_EXISTS'});
-}
+};
 
 const _userNotFound = (res) => {
   res.status(404).json({status:404, errorCode:'RESOURCE_NOT_FOUND'});
-}
+};
 
 function catchError(error, res) {
   errors[error.name](res);

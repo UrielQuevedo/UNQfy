@@ -10,7 +10,7 @@ router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
 
 router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
-  const user = unqfy.getUser(id);
+  const user = unqfy.getUser(parseInt(id));
   res.status(200).json(user);
 }))); 
 
@@ -20,14 +20,14 @@ router.get('/', (connection.executeFunction([],(unqfy, req, res) => {
 
 router.put('/:id', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const { id } = req.params;
-  const user = unqfy.getUser(id);
+  const user = unqfy.getUser(parseInt(id));
   user.name = req.body.name;
   res.status(200).json(user);
 })));
 
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
-  unqfy.removeUser(id);
+  unqfy.removeUser(parseInt(id));
   res.status(204).json({status:204});    
 })));
 
@@ -35,7 +35,7 @@ router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
 
 router.get('/:id/tracksHeard', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
-  const user = unqfy.getUser(id);
+  const user = unqfy.getUser(parseInt(id));
   res.status(200).json(user.getTracksHeard());
 }))); 
 
@@ -44,7 +44,7 @@ router.get('/:id/tracksHeard', (connection.executeFunction([],(unqfy, req, res) 
 router.post('/:id/tracksHeard', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const { id } = req.params;
   const newTrack = req.body;
-  const user = unqfy.getUser(id);
+  const user = unqfy.getUser(parseInt(id));
   const track = unqfy.getTrackByName(newTrack.name);
   user.listenTrack(track);
   res.status(201).json(track);
@@ -52,7 +52,7 @@ router.post('/:id/tracksHeard', (connection.executeFunction(['name'],(unqfy, req
   
 router.get('/:idUser/:idTrack/tracksHeard', (connection.executeFunction([],(unqfy, req, res) => {
   const { idUser , idTrack} = req.params;
-  const user = unqfy.getUser(idUser);
+  const user = unqfy.getUser(parseInt(idUser));
   res.status(200).json({repeat:user.manyTimesListenTrack(idTrack)});
 })));
   

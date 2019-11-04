@@ -10,7 +10,8 @@ router.post('/', (connection.executeFunction(['name','country'],(unqfy, req, res
 
 router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
-  const artist = unqfy.getArtistById(id);
+  const artist = unqfy.getArtistById(parseInt(id));
+  console.log(artist);
   res.status(200).json(artist);
 }))); 
 
@@ -29,7 +30,7 @@ router.put('/:id', (connection.executeFunction(['name','country'],(unqfy, req, r
   const { id } = req.params;
   const newName = req.body.name;
   const newCountry = req.body.country;
-  const artist = unqfy.getArtistById(id);
+  const artist = unqfy.getArtistById(parseInt(id));
   artist.name = newName;
   artist.country = newCountry;
   res.status(200).json(artist);
@@ -37,7 +38,7 @@ router.put('/:id', (connection.executeFunction(['name','country'],(unqfy, req, r
 
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
-  const artist = unqfy.getArtistById(id);
+  const artist = unqfy.getArtistById(parseInt(id));
   unqfy.removeArtist(artist.id);
   res.status(204).json({status:204});
 })));

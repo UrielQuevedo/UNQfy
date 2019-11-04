@@ -105,7 +105,7 @@ class UNQfy {
 
   searchElementById(list, id) {
     return list.find(elem => 
-      elem.id === id
+      elem.id === parseInt(id)
     );
   }
 
@@ -117,7 +117,9 @@ class UNQfy {
   }
 
   getArtistById(id) {
+    console.log(id);
     const element = this.searchElementById(this.artists, id);
+    console.log(this.artists);
     if(element === undefined) {
       throw new NonExistentArtistException(id);
     } 
@@ -308,6 +310,10 @@ class UNQfy {
       throw new NonExistentArtistException(artistName);
     } 
     return artist.albums;
+  }
+
+  removePlayList(playlistId) {
+    this.playlists = this.playlists.filter(p => p.id !== playlistId);
   }
 
   save(filename) {

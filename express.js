@@ -15,6 +15,7 @@ app.use('/api/tracks',require('./routes/tracks'));
 app.use('/api/users',require('./routes/users'));
 app.use('/api/albums', require('./routes/album.js'));
 app.use('/api/playlists', require('./routes/playlists'));
+app.use('/api/notification', require('./notification/notifyRoute'));
 app.use('/invalidRoute',require('./routes/invalidRoute'));
 app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {

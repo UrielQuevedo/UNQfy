@@ -1,3 +1,5 @@
+const gmailTool = require('./gmail-tools/send-mail-example/sendMail');
+
 class Notification {
 
   constructor() {
@@ -26,8 +28,7 @@ class Notification {
 
   notify(artistId, subject, message) {
     this.suscribers[artistId].forEach(email => {
-      //notificar por email
-      console.log(email);
+      gmailTool.sendEmail(subject, message, email);
     });
   }
 

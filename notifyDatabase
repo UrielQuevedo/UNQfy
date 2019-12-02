@@ -9,10 +9,17 @@
     "__00001__": {
       "suscribers": "__00002__"
     },
-    "__00002__": {}
+    "__00002__": {
+      "3": "__00003__"
+    },
+    "__00003__": {
+      "0": "quevedouriel3@gmail.com",
+      "1": "cassanojoseluis@gmail.com"
+    }
   },
   "types": {
     "__00001__": "Notification",
-    "__00002__": "Object"
+    "__00002__": "Object",
+    "__00003__": "Array"
   }
 }

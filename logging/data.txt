@@ -1,7 +1,7 @@
 
+MENSAJE: Se agrego el artista Guns and Roses NIVEL: info
 MENSAJE: Se agrego el artista Muse NIVEL: info
 MENSAJE: Se elimino el artista Muse NIVEL: info
 MENSAJE: Se agrego el album Appetite For Destruction NIVEL: info
 MENSAJE: Se agrego el album Use Your Illusion 1 NIVEL: info
 MENSAJE: Se elimino el album Appetite For Destruction NIVEL: info
-MENSAJE: Se agrego el artista Guns and Roses NIVEL: info

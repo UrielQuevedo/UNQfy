@@ -1,11 +1,13 @@
 const Activate = require('./activate');
 const Desactivate = require('./desactivate');
+const loggly = require('./loggly');
 
 class Log {
 
     constructor() {
         this.state = new Activate(this);
         this.events = [];
+        loggly.addLoggly();
     }
 
     addEvent(event) {

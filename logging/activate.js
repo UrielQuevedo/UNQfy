@@ -2,9 +2,7 @@ const util = require('util');
 const fs = require('fs');
 const writeFilePromise = util.promisify(fs.writeFile);
 const readFilePromise = util.promisify(fs.readFile);
-const rp = require('request-promise');
-var winston  = require('winston');
-var {Loggly} = require('winston-loggly-bulk');
+const loggly  = require('./loggly');
 
 class Activate {
 
@@ -27,16 +25,7 @@ class Activate {
     } 
 
     saveEventLoggly(event) {
-
-        winston.add(new Loggly({
-            token: "2cfa1da5-eaf3-4a82-a504-fae09443b297",
-            subdomain: "danivillegas",
-            tags: ["Winston-NodeJS"],
-            json: true
-        }));
-        
-        winston.log(event.levelMessage, event.message);
-        
+       loggly.addEvent(event);
       }
 
 }

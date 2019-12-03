@@ -17,7 +17,7 @@ const NonExistentArtistAlbumException = require('./exceptions/nonExistentArtistA
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
 const IdGenerator = require('./idGenerator');
 const spotifyAPI = require('./spotifyAPI');
-
+const rp = require('request-promise');
 
 class UNQfy {
 
@@ -319,6 +319,20 @@ class UNQfy {
       throw new NonExistentArtistException(artistName);
     } 
     return artist.albums;
+  }
+
+  sendInfoToLog(body) {
+
+    var options = {
+      method: 'POST',
+      uri: 'http://localhost:8081/api/log',
+      body: body,
+      json: true 
+    };
+   
+    rp(options)
+    .then(() => console.log('Se envio con exito a la api log'))
+    .catch(() => console.log('No se envio a la api log'))
   }
 
   removePlayList(playlistId) {

@@ -5,6 +5,7 @@ const router = Router();
 router.post('/', (connection.executeFunction(['albumId','name','duration','genres'],(unqfy, req, res) => {
   const data = req.body;
   const track = unqfy.addTrack(data.albumId,{name:data.name, duration:data.duration, genres:data.genres});
+  unqfy.sendInfoToLog({ message: 'Se agrego el track ' + track.name, levelMessage: 'info'});
   res.status(201).json(track);
 })));
 

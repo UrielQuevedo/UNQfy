@@ -5,6 +5,7 @@ const router = Router();
 router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const newUser = req.body;
   const user = unqfy.addUser(newUser.name);
+  unqfy.sendInfoToLog({ message: 'Se agrego el usuario ' + user.name, levelMessage: 'info'});
   res.status(201).json(user);
 })));
 
@@ -27,6 +28,7 @@ router.put('/:id', (connection.executeFunction(['name'],(unqfy, req, res) => {
 
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
+  unqfy.sendInfoToLog({ message: 'Se elimino el usuario con id ' + id, levelMessage: 'info'});
   unqfy.removeUser(parseInt(id));
   res.status(204).json({status:204});    
 })));
@@ -46,6 +48,7 @@ router.post('/:id/tracksHeard', (connection.executeFunction(['name'],(unqfy, req
   const newTrack = req.body;
   const user = unqfy.getUser(parseInt(id));
   const track = unqfy.getTrackByName(newTrack.name);
+  unqfy.sendInfoToLog({ message: 'El usuario ' + user.name + ' escucho el track ' + track.name, levelMessage: 'info'});
   user.listenTrack(track);
   res.status(201).json(track);
 })));

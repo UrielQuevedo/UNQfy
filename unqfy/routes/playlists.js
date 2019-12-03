@@ -16,6 +16,7 @@ router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const tracksId = newPlaylist;
   if(genres !== undefined && maxDuration !== undefined ) {
     const playlist = unqfy.createPlaylist(name, genres, maxDuration);
+    unqfy.sendInfoToLog({ message: 'Se agrego la playlist ' + playlist.name, levelMessage: 'info'});
     res.status(201).json(playlist);
   } else if(tracksId !== undefined) {
     const playlist = unqfy.createPlaylistByTracks(name, tracksId);
@@ -27,6 +28,7 @@ router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
 
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
+  unqfy.sendInfoToLog({ message: 'Se elimino la playlist con id ' + id, levelMessage: 'info'});
   unqfy.removePlayList(parseInt(id));
   res.status(204).json({status:204});
 })));

@@ -10,9 +10,13 @@
       "suscribers": "__00002__"
     },
     "__00002__": {
-      "3": "__00003__"
+      "0": "__00003__",
+      "3": "__00004__"
     },
     "__00003__": {
+      "0": "dani.villegascarp@gmail.com"
+    },
+    "__00004__": {
       "0": "quevedouriel3@gmail.com",
       "1": "cassanojoseluis@gmail.com"
     }
@@ -20,6 +24,7 @@
   "types": {
     "__00001__": "Notification",
     "__00002__": "Object",
-    "__00003__": "Array"
+    "__00003__": "Array",
+    "__00004__": "Array"
   }
 }

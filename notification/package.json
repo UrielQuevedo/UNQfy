@@ -1,0 +1,23 @@
+{
+  "name": "notification",
+  "version": "1.0.0",
+  "description": "",
+  "main": "notification.js",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "express": "^4.17.1",
+    "request": "^2.88.0",
+    "googleapis": "^45.0.0",
+    "picklify": "github:lwoites/picklify",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  },
+  "scripts": {
+    "dev": "nodemon express.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

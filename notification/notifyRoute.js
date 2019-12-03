@@ -77,4 +77,8 @@ router.delete('/suscriptions', (execute(['artistId'], 'body',(notification, req,
   res.status(200).json();
 })));
 
+router.get('/ping', (req, res) => {
+  res.status(200).json();
+});
+
 module.exports = router;

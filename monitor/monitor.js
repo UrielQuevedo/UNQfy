@@ -28,7 +28,7 @@ function checkService(service) {
       .then((isOnline) => {
         return {
           service: service.name,
-          status: (isOnline ? 'Enable' : 'Desable')
+          status: (isOnline ? 'Enabled' : 'Disabled')
       };
     });
 }
@@ -40,6 +40,14 @@ function isAliveP(port) {
 function disableMonitoringPeriodically(bool) {
   preiodically = bool;
 }
+
+function intervalFunc() {
+  if(preiodically) {
+    services.map((service) => checkService(service));
+  }
+}
+
+setInterval(intervalFunc, 15000);
 
 module.exports = {
   isAlive,

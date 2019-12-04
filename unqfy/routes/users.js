@@ -2,6 +2,10 @@ const { Router } = require('express');
 const connection = require('../connection');
 const router = Router();
 
+router.get('/ping', (req, res) => {
+  res.status(200).json();
+});
+
 router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const newUser = req.body;
   const user = unqfy.addUser(newUser.name);

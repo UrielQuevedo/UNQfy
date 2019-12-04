@@ -16,6 +16,7 @@ app.use('/api/users',require('./routes/users'));
 app.use('/api/albums', require('./routes/album.js'));
 app.use('/api/playlists', require('./routes/playlists'));
 app.use('/invalidRoute',require('./routes/invalidRoute'));
+app.use('/api', require('./routes/users'));
 app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {
     res.status(400).json({status:400, errorCode:'BAD_REQUEST'});

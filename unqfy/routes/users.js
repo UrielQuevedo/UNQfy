@@ -5,7 +5,7 @@ const router = Router();
 router.post('/', (connection.executeFunction(['name'],(unqfy, req, res) => {
   const newUser = req.body;
   const user = unqfy.addUser(newUser.name);
-  unqfy.sendInfoToLog({ message: 'Se agrego el usuario ' + user.name, levelMessage: 'info'});
+  unqfy.notifyAllObservers({ message: 'Se agrego el usuario ' + user.name, levelMessage: 'info'});
   res.status(201).json(user);
 })));
 
@@ -48,7 +48,7 @@ router.post('/:id/tracksHeard', (connection.executeFunction(['name'],(unqfy, req
   const newTrack = req.body;
   const user = unqfy.getUser(parseInt(id));
   const track = unqfy.getTrackByName(newTrack.name);
-  unqfy.sendInfoToLog({ message: 'El usuario ' + user.name + ' escucho el track ' + track.name, levelMessage: 'info'});
+  unqfy.notifyAllObservers({ message: 'El usuario ' + user.name + ' escucho el track ' + track.name, levelMessage: 'info'});
   user.listenTrack(track);
   res.status(201).json(track);
 })));

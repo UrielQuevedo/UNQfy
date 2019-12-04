@@ -14,4 +14,8 @@ router.post('/', (req, res) => {
   res.json(req.body);
 });
 
+router.get('/ping', (req, res) => {
+  res.status(200).json();
+});
+
 module.exports = router;

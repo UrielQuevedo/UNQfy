@@ -6,7 +6,7 @@ const PORT = 8081 ;
 const app = express();
 
 app.use(bodyParser.json());
-app.use('/api/log', require('./logRoute'));
+app.use('/api', require('./logRoute'));
 
 // manage 404 not found
 app.use((req, res) => {

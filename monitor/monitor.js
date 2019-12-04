@@ -3,7 +3,8 @@ const slackService = require('./slackService');
 let preiodically = true;
 const services = [
   { port: 8080, name: 'UNQfy', status: false},
-  { port: 8000, name: 'Notification', status: false}
+  { port: 8000, name: 'Notification', status: false},
+  { port: 8081, name: 'Logging', status: false}
 ]
 
 function isAlive(res) {

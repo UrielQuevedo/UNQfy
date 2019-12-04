@@ -11,12 +11,14 @@ router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
 router.post('/', (connection.executeFunction(['artistId','name','year'],(unqfy, req, res) => {
   const dataAlbum = req.body;
   const album = unqfy.addAlbum(parseInt(dataAlbum.artistId), {name:dataAlbum.name, year:dataAlbum.year});
+  unqfy.notifyAllObservers({ message: 'Se agrego el album ' + album.name, levelMessage: 'info'});
   res.status(201).json(album);
 })));
 
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   const album = unqfy.getAlbumById(parseInt(id));
+  unqfy.notifyAllObservers({ message: 'Se elimino el album ' + album.name, levelMessage: 'info'});
   unqfy.removeAlbum(album.id);
   res.status(204).json({status:204});
 })));

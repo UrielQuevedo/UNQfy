@@ -1,0 +1,17 @@
+const { Router } = require('express');
+const router = Router();
+const Desactivate = require('./desactivate');
+const fs = require('fs'); 
+const Log = require('./log');
+const log = new Log();
+
+log.state = new Desactivate();
+
+router.post('/', (req, res) => {
+  log.saveEventLocal(req.body);
+  log.saveEventLoggly(req.body);
+  res.status(200);
+  res.json(req.body);
+});
+
+module.exports = router;

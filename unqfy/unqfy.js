@@ -17,7 +17,9 @@ const NonExistentArtistAlbumException = require('./exceptions/nonExistentArtistA
 const TheArtistWithThatNameAlreadyExistsException = require('./exceptions/theartistwiththatnamealreadyexistsexception');
 const IdGenerator = require('./idGenerator');
 const spotifyAPI = require('./spotifyAPI');
-
+const rp = require('request-promise');
+const NotifyLog = require('./notifyLog');
+const notifyLog = new NotifyLog();
 
 class UNQfy {
 
@@ -26,6 +28,8 @@ class UNQfy {
     this.artists = [];
     this.playlists = [];
     this.users = [];
+    this.observers = [];
+    this.addObserver(notifyLog);
   }
 
   // artistData: objeto JS con los datos necesarios para crear un artista
@@ -340,6 +344,14 @@ class UNQfy {
     return playlist;
   }
 
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
+
+  notifyAllObservers(object) {
+    this.observers.forEach(observer => observer.notify(object));
+  }
+
   save(filename) {
     const listenersBkp = this.listeners;
     this.listeners = [];
@@ -353,7 +365,7 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy, Artist, Album, Track, Playlist, User, IdGenerator];
+    const classes = [UNQfy, Artist, Album, Track, Playlist, User, IdGenerator, NotifyLog];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

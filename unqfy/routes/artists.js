@@ -5,6 +5,7 @@ const router = Router();
 router.post('/', (connection.executeFunction(['name','country'],(unqfy, req, res) => {
   const newArtist = req.body;
   const art = unqfy.addArtist(newArtist);
+  unqfy.notifyAllObservers({ message: 'Se agrego el artista ' + art.name, levelMessage: 'info'});
   res.status(201).json(art);
 })));
 
@@ -39,6 +40,7 @@ router.put('/:id', (connection.executeFunction(['name','country'],(unqfy, req, r
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   const artist = unqfy.getArtistById(parseInt(id));
+  unqfy.notifyAllObservers({ message: 'Se elimino el artista ' + artist.name, levelMessage: 'info'})
   unqfy.removeArtist(artist.id);
   res.status(204).json({status:204});
 })));

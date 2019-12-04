@@ -11,7 +11,8 @@ router.get('/:id', (connection.executeFunction([],(unqfy, req, res) => {
 router.post('/', (connection.executeFunction(['artistId','name','year'],(unqfy, req, res) => {
   const dataAlbum = req.body;
   const album = unqfy.addAlbum(parseInt(dataAlbum.artistId), {name:dataAlbum.name, year:dataAlbum.year});
-  unqfy.notifyAllObservers({ message: 'Se agrego el album ' + album.name, levelMessage: 'info'});
+  const artist = unqfy.getArtistById(dataAlbum.artistId);
+  unqfy.notifyAllObserversAddAlbum(artist, dataAlbum.name);
   res.status(201).json(album);
 })));
 

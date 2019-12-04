@@ -10,7 +10,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json()); 
 
 // routes 
-app.use('/api/notification',require('./notifyRoute'));
 app.use('/api',require('./notifyRoute'));
 app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {

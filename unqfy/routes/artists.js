@@ -40,7 +40,7 @@ router.put('/:id', (connection.executeFunction(['name','country'],(unqfy, req, r
 router.delete('/:id', (connection.executeFunction([],(unqfy, req, res) => {
   const { id } = req.params;
   const artist = unqfy.getArtistById(parseInt(id));
-  unqfy.notifyAllObservers({ message: 'Se elimino el artista ' + artist.name, levelMessage: 'info'})
+  unqfy.notifyAllObservers({ message: 'Se elimino el artista ' + artist.name, levelMessage: 'info'});
   unqfy.removeArtist(artist.id);
   res.status(204).json({status:204});
 })));

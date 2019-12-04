@@ -19,7 +19,9 @@ const IdGenerator = require('./idGenerator');
 const spotifyAPI = require('./spotifyAPI');
 const rp = require('request-promise');
 const NotifyLog = require('./notifyLog');
+const NotifyNotification = require('./notifyNotification');
 const notifyLog = new NotifyLog();
+const notifyNotification = new NotifyNotification();
 
 class UNQfy {
 
@@ -30,6 +32,7 @@ class UNQfy {
     this.users = [];
     this.observers = [];
     this.addObserver(notifyLog);
+    this.addObserver(notifyNotification);
   }
 
   // artistData: objeto JS con los datos necesarios para crear un artista
@@ -352,6 +355,10 @@ class UNQfy {
     this.observers.forEach(observer => observer.notify(object));
   }
 
+  notifyAllObserversAddAlbum(artist, name) {
+    this.observers.forEach(observer => observer.notifyAddAlbum(artist, name));
+  }
+
   save(filename) {
     const listenersBkp = this.listeners;
     this.listeners = [];
@@ -365,7 +372,7 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy, Artist, Album, Track, Playlist, User, IdGenerator, NotifyLog];
+    const classes = [UNQfy, Artist, Album, Track, Playlist, User, IdGenerator, NotifyLog, NotifyNotification];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

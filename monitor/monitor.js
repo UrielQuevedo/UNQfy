@@ -2,9 +2,9 @@ const rp = require('request-promise');
 const slackService = require('./slackService');
 let preiodically = true;
 const services = [
-  { port: 8080, name: 'UNQfy', status: false},
-  { port: 8000, name: 'Notification', status: false},
-  { port: 8081, name: 'Logging', status: false}
+  { port: 5000, ip:'172.20.0.21', name: 'UNQfy', status: false},
+  { port: 5001, ip:'172.20.0.22', name: 'Notification', status: false},
+  { port: 5003, ip:'172.20.0.24', name: 'Logging', status: false}
 ]
 
 function isAlive(res) {
@@ -13,7 +13,7 @@ function isAlive(res) {
 }
 
 function checkService(service) {
-   return isAliveP(service.port)
+   return isAliveP(service.port, service.id)
       .then(() => {
         if (!service.status) {
           slackService.notifyServiceIsWorking(service.name)
@@ -33,8 +33,8 @@ function checkService(service) {
     });
 }
 
-function isAliveP(port) {
-  return rp.get(`http://localhost:${port}/api/ping`);
+function isAliveP(port, id) {
+  return rp.get(`http://${id}:${port}/api/ping`);
 }
 
 function disableMonitoringPeriodically(bool) {

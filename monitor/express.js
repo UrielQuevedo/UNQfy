@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 // settings
-app.set('port', process.env.PORT || 8001); 
+app.set('port', process.env.PORT || 5002); 
 app.set('json spaces', 2);
 
 // middlewares

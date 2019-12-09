@@ -7,7 +7,7 @@ class NotifyNotification {
   notifyAddAlbum(artist, albumName) {
     const options = {
       method: 'POST',
-      uri: 'http://localhost:8000/api/notify',
+      uri: 'http://172.20.0.22:5001/api/notify',
       body: { 
         artistId: artist.id, 
         subject: `Se agrego un nuevo album para el artista ${artist.name}`,

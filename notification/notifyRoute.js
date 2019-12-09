@@ -29,7 +29,7 @@ function execute(params, path, func) {
     if (params.every(p => isNotUndefined(req.query[p]) || isNotUndefined(req.body[p]))) {
       try {
         const notification = getNotify('notifyDatabase');
-        rp.get(`http://localhost:8080/api/artists/${req[path].artistId}`)
+        rp.get(`http://172.20.0.21:5000/api/artists/${req[path].artistId}`)
           .then(() => {
             func(notification, req, res);
             saveNotify(notification, 'notifyDatabase');

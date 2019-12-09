@@ -5,7 +5,7 @@ class NotifyLog {
   notify(object) {
     const options = {
       method: 'POST',
-      uri: 'http://localhost:8081/api',
+      uri: 'http://172.20.0.24:5003/api',
       body: object,
       json: true 
     };

@@ -5,8 +5,6 @@ const fs = require('fs');
 const Log = require('./log');
 const log = new Log();
 
-log.state = new Desactivate();
-
 router.post('/', (req, res) => {
   log.saveEventLocal(req.body);
   log.saveEventLoggly(req.body);

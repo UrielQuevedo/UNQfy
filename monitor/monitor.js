@@ -13,7 +13,7 @@ function isAlive(res) {
 }
 
 function checkService(service) {
-   return isAliveP(service.port, service.id)
+   return isAliveP(service.port, service.ip)
       .then(() => {
         if (!service.status) {
           slackService.notifyServiceIsWorking(service.name)
@@ -33,8 +33,8 @@ function checkService(service) {
     });
 }
 
-function isAliveP(port, id) {
-  return rp.get(`http://${id}:${port}/api/ping`);
+function isAliveP(port, ip) {
+  return rp.get(`http://${ip}:${port}/api/ping`);
 }
 
 function disableMonitoringPeriodically(bool) {

@@ -55,7 +55,7 @@ node main.js tracksMatchingGenres ["rock","punk"]
 
 tracksMatchingArtist unNombreDeArtista
 
-node main.js tracksMatchingArtist "Dani"
+node main.js tracksMatchingArtist "Daniel"
 
 --------------------------------------------------------------------------
 

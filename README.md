@@ -1,4 +1,4 @@
-# UNQfy
+# UNQfy -
 
 Diagrama de clases:
 Exportado como PDF.
